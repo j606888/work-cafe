@@ -1,0 +1,34 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "James",
+      "email": "test@test.com",
+      "password": "testtest"
+    },
+    {
+      "id": "163d8166-9f78-4537-ad19-353cdb700feb",
+      "name": "asdfa",
+      "email": "astes@tgmail.com",
+      "password": "asfsadfasdf"
+    },
+    {
+      "id": "87080803-3d92-4941-9cb8-d74dae17c6a3",
+      "name": "Steve",
+      "email": "steve@gmail.com",
+      "password": "testtest"
+    },
+    {
+      "id": "ef8f7344-5ab3-4fa3-a57e-7fa612218d89",
+      "name": "james22",
+      "email": "james22@gmail.com",
+      "password": "testtests"
+    },
+    {
+      "id": "2c11f6d2-488f-415a-867b-13e218484e12",
+      "name": "james22",
+      "email": "james22@gmail.com",
+      "password": "testtests"
+    }
+  ]
+}

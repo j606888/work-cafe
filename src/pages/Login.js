@@ -60,7 +60,6 @@ const Login = () => {
         const user = users.find(u => u.email === values.email)
   
         if (user && user.password === values.password) {
-          console.log('Login success!')
           setLoginSuccess(true)
         } else {
           setLoginFailed(true)

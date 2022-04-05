@@ -14,6 +14,7 @@ import * as yup from "yup"
 import { v4 as uuidv4 } from 'uuid'
 import Api from "../helper/api"
 import Alert from "../components/ui/alert"
+import { useState } from "react"
 
 const validationSchema = yup.object({
   name: yup
@@ -30,6 +31,8 @@ const validationSchema = yup.object({
 })
 
 const Signup = () => {
+  const [signupSuccess, setSignupSuccess] = useState(false)
+  const [signupFailed, setSignupFailed] = useState(false)
   const api = new Api()
   const paperStyle = {
     padding: 20,
@@ -52,19 +55,23 @@ const Signup = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
+      setSignupSuccess(false)
+      setSignupFailed(false)
+
       const data = {
         id: uuidv4(),
         ...values
       }
       api
         .signup(data)
-        .then(response => console.log(response))
-        .catch(err => console.log(err))
+        .then((response) => setSignupSuccess(true))
+        .catch((err) => setSignupFailed(true))
     },
   })
   return (
     <Grid>
-      <Alert message="Hello World" />
+      {signupSuccess && <Alert message="Signup Success!" />}
+      {signupFailed && <Alert message="Signup Failed!" type="error" />}
       <Paper elevation={10} style={paperStyle}>
         <form onSubmit={formik.handleSubmit}>
           <Grid align="center">
