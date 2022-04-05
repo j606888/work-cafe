@@ -21,7 +21,6 @@ function Alert({ message, type='success'}) {
       onClose={handleClose}
     >
       <MuiAlert
-        elevation={6}
         variant="filled"
         onClose={handleClose}
         severity={severity}

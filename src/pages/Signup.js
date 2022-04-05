@@ -72,7 +72,7 @@ const Signup = () => {
     <Grid>
       {signupSuccess && <Alert message="Signup Success!" />}
       {signupFailed && <Alert message="Signup Failed!" type="error" />}
-      <Paper elevation={10} style={paperStyle}>
+      <Paper elevation={4} style={paperStyle}>
         <form onSubmit={formik.handleSubmit}>
           <Grid align="center">
             <Avatar style={avatarStyle}>
