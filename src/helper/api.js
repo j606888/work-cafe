@@ -22,4 +22,8 @@ export default class Api {
   signup = (data) => {
     return this.init().post('/users', data)
   }
+
+  getUsers = () => {
+    return this.init().get('/users')
+  }
 }

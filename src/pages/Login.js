@@ -13,6 +13,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
 import { Link as RouterLink } from "react-router-dom"
 import { useFormik } from "formik"
 import * as yup from 'yup'
+import Api from "../helper/api"
 
 const validationSchema = yup.object({
   email: yup
@@ -26,6 +27,7 @@ const validationSchema = yup.object({
 })
 
 const Login = () => {
+  const api = new Api()
   const paperStyle = {
     padding: 20,
     height: "70vh",
@@ -46,7 +48,15 @@ const Login = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2))
+      api.getUsers().then(({data: users}) => {
+        const user = users.find(u => u.email === values.email)
+  
+        if (user && user.password === values.password) {
+          console.log('Login success!')
+        } else {
+          console.log('Login failed')
+        }
+      })
     }
   })
   return (
