@@ -12,10 +12,11 @@ function TextInput({name, formik, type='text'}) {
       type={type}
       label={capitalizeFirstLetter(name)}
       fullWidth
-      value={formik.values[name]}
-      onChange={formik.handleChange}
-      error={formik.touched[name] && Boolean(formik.errors[name])}
-      helperText={formik.touched[name] && formik.errors[name]}
+      margin="dense"
+      value={formik && formik.values[name]}
+      onChange={formik && formik.handleChange}
+      error={formik && formik.touched[name] && Boolean(formik.errors[name])}
+      helperText={formik && formik.touched[name] && formik.errors[name]}
     />
   )
 }
