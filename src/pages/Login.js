@@ -2,7 +2,6 @@ import {
   Avatar,
   Grid,
   Paper,
-  TextField,
   FormControlLabel,
   Checkbox,
   Button,
@@ -16,6 +15,7 @@ import * as yup from 'yup'
 import Api from "../helper/api"
 import { useState } from "react"
 import Alert from "../components/ui/alert"
+import TextInput from "../components/input/TextInput"
 
 const validationSchema = yup.object({
   email: yup
@@ -79,27 +79,8 @@ const Login = () => {
             </Avatar>
             <h2>Log In</h2>
           </Grid>
-          <TextField
-            id="email"
-            name="email"
-            label="Email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
-            fullWidth
-          />
-          <TextField
-            id="password"
-            name="password"
-            label="Password"
-            type="password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
-            fullWidth
-          />
+          <TextInput name="email" formik={formik} />
+          <TextInput name="password" formik={formik} />
           <FormControlLabel
             control={<Checkbox name="checkedB" color="primary" />}
             label="Remember me"

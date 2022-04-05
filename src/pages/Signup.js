@@ -2,7 +2,6 @@ import {
   Avatar,
   Grid,
   Paper,
-  TextField,
   Button,
   Typography,
   Link,
@@ -15,6 +14,7 @@ import { v4 as uuidv4 } from 'uuid'
 import Api from "../helper/api"
 import Alert from "../components/ui/alert"
 import { useState } from "react"
+import TextInput from "../components/input/TextInput"
 
 const validationSchema = yup.object({
   name: yup
@@ -80,37 +80,9 @@ const Signup = () => {
             </Avatar>
             <h2>Sign Up</h2>
           </Grid>
-          <TextField
-            id="name"
-            name="name"
-            label="Name"
-            fullWidth
-            value={formik.values.name}
-            onChange={formik.handleChange}
-            error={formik.touched.name && Boolean(formik.errors.name)}
-            helperText={formik.touched.name && formik.errors.name}
-          />
-          <TextField
-            id="email"
-            name="email"
-            label="Email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
-            fullWidth
-          />
-          <TextField
-            id="password"
-            name="password"
-            label="Password"
-            type="password"
-            fullWidth
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
-          />
+          <TextInput name="name" formik={formik} />
+          <TextInput name="email" formik={formik} />
+          <TextInput name="password" formik={formik} />
           <Button
             variant="contained"
             type="submit"
