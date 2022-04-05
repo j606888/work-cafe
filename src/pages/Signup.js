@@ -13,6 +13,7 @@ import { useFormik } from "formik"
 import * as yup from "yup"
 import { v4 as uuidv4 } from 'uuid'
 import Api from "../helper/api"
+import Alert from "../components/ui/alert"
 
 const validationSchema = yup.object({
   name: yup
@@ -63,6 +64,7 @@ const Signup = () => {
   })
   return (
     <Grid>
+      <Alert message="Hello World" />
       <Paper elevation={10} style={paperStyle}>
         <form onSubmit={formik.handleSubmit}>
           <Grid align="center">

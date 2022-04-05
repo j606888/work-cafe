@@ -14,6 +14,8 @@ import { Link as RouterLink } from "react-router-dom"
 import { useFormik } from "formik"
 import * as yup from 'yup'
 import Api from "../helper/api"
+import { useState } from "react"
+import Alert from "../components/ui/alert"
 
 const validationSchema = yup.object({
   email: yup
@@ -41,6 +43,9 @@ const Login = () => {
     margin: "8px 0",
   }
 
+  const [loginSuccess, setLoginSuccess] = useState(false)
+  const [loginFailed, setLoginFailed] = useState(false)
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -48,19 +53,25 @@ const Login = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
+      setLoginSuccess(false)
+      setLoginFailed(false)
+
       api.getUsers().then(({data: users}) => {
         const user = users.find(u => u.email === values.email)
   
         if (user && user.password === values.password) {
           console.log('Login success!')
+          setLoginSuccess(true)
         } else {
-          console.log('Login failed')
+          setLoginFailed(true)
         }
       })
     }
   })
   return (
     <Grid>
+      {loginSuccess && <Alert message="Login Success!" />}
+      {loginFailed && <Alert message="Login Failed!" type="error" />}
       <Paper elevation={10} style={paperStyle}>
         <form onSubmit={formik.handleSubmit}>
           <Grid align="center">
