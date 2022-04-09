@@ -1,6 +1,5 @@
-import { Wrapper } from "@googlemaps/react-wrapper"
-import Marker from "../components/google-map/Marker"
-import Map from "../components/google-map/Map"
+import MapWrapper from "../components/google-map/MapWrapper"
+// import MyMapComponent from "../components/google-map/MyMapComponent"
 
 const GOOGLE_MAP_API_KEY = process.env.REACT_APP_GOOGLE_MAP_API_KEY
 
@@ -13,11 +12,17 @@ const GoogleMap = () => {
   const zoom = 16
 
   return (
-    <Wrapper apiKey={GOOGLE_MAP_API_KEY} render={render}>
-      <Map center={center} zoom={zoom}>
-        <Marker position={center} />
-      </Map>
-    </Wrapper>
+    <div>
+      <h1>My Map</h1>
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100vh',
+        width: '100vw'
+      }}>
+        <MapWrapper />
+      </div>
+    </div>
   )
 }
 

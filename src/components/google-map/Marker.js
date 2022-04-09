@@ -17,7 +17,7 @@ const Marker = (options) => {
   }, [marker])
   useEffect(() => {
     if (marker) {
-      marker.setOptions(options)
+      marker.setOptions({ ...options, label: 'hahaha', title: 'My title' })
     }
   }, [marker, options])
   return null
