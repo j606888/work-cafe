@@ -4,6 +4,7 @@ import Signup from "./pages/Signup"
 import Login from "./pages/Login"
 import Profile from "./pages/Profile"
 import HomePage from "./pages/HomePage"
+import GoogleMap from "./pages/GoogleMap"
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
+        <Route path="/google-map" element={<GoogleMap />}></Route>
       </Routes>
     </div>
   )
