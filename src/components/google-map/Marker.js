@@ -1,25 +1,16 @@
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 
-const Marker = (options) => {
-  const [marker, setMarker] = useState()
-
+const Marker = ({ map, position, label }) => {
   useEffect(() => {
-    if (!marker) {
-      setMarker(new window.google.maps.Marker())
+    if (map) {
+      new window.google.maps.Marker({
+        position: position,
+        label: label,
+        map: map,
+      })
     }
+  }, [position, map, label])
 
-    // remove marker from map on unmount
-    return () => {
-      if (marker) {
-        marker.setMap(null)
-      }
-    }
-  }, [marker])
-  useEffect(() => {
-    if (marker) {
-      marker.setOptions({ ...options, label: 'hahaha', title: 'My title' })
-    }
-  }, [marker, options])
   return null
 }
 

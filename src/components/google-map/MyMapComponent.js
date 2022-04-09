@@ -1,40 +1,35 @@
 import { useEffect, useRef, useState } from "react"
 
 import Searcher from "./Searcher"
+import Markers from "./Markers"
+import CurrentPosition from "./CurrentPosition"
 
 function MyMapComponent() {
   const ref = useRef(null)
   const [map, setMap] = useState()
-  const [prop, setProp] = useState({position: { lat: 0, lng: 0 }, label: 'init' })
 
-  /**
-   * Because google.maps.Map requires an Element as a constructor parameter,
-   * useRef is needed to maintain a mutable object
-   * that will persist for the lifetime of the component.
-   */
   useEffect(() => {
     if (ref.current && !map) {
-      setMap(new window.google.maps.Map(ref.current, {}))
+      setMap(
+        new window.google.maps.Map(ref.current, {
+          center: {
+            lat: 22.9918511,
+            lng: 120.2066457,
+          },
+          zoom: 14,
+        })
+      )
     }
   }, [ref, map])
 
-  // Add marker
-  useEffect(() => {
-    if (map) {
-      map.setOptions({ center: prop.position, zoom: 3 })
-    }
-    new window.google.maps.Marker({
-      position: prop.position,
-      label: prop.label,
-      map,
-    })
-  }, [map, prop])
-
   return (
     <>
-      <Searcher setProp={setProp} />
+      <Searcher map={map} />
       <div style={{ height: "20px" }} />
-      <div ref={ref} style={{ width: "100%", height: "100%" }} />
+      <CurrentPosition map={map} />
+      <div ref={ref} style={{ width: "100%", height: "80%" }}>
+        <Markers map={map} />
+      </div>
     </>
   )
 }

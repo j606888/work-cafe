@@ -1,8 +1,7 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
-const Searcher = (props) => {
+const Searcher = ({ map }) => {
   const geocoder = new window.google.maps.Geocoder()
-  const { setProp } = props
   const [address, setAddress] = useState("")
 
   const onSearch = () => {
@@ -14,7 +13,15 @@ const Searcher = (props) => {
         const location = firstResult.geometry.location
         const lat = location.lat()
         const lng = location.lng()
-        setProp({ position: { lat, lng }, label: address })
+
+        new window.google.maps.Marker({
+          position: {
+            lat,
+            lng,
+          },
+          label: address,
+          map,
+        })
       })
       .catch((e) => {
         alert("Geocode was not successful for the following reason: " + e)
