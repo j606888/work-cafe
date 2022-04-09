@@ -17,6 +17,7 @@ function MyMapComponent() {
             lng: 120.2066457,
           },
           zoom: 14,
+          mapTypeId: 'roadmap'
         })
       )
     }
