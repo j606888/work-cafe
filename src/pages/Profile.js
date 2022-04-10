@@ -19,7 +19,7 @@ const Profile = () => {
     <NavbarContainer>
       <Container
         maxWidth="sm"
-        style={{ backgroundColor: "#efefef", height: '100%', padding: 40 }}
+        style={{padding: 40 }}
       >
         {info.id && (
           <Paper

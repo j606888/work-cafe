@@ -1,4 +1,6 @@
 .container {
-  min-height: 100vh;
-  padding-top: 64px;
+  min-height: calc(100vh - 64px);
+    display: flex;
+  /* padding-top: 64px; */
+  /* margin-top: 64px; */
 }
