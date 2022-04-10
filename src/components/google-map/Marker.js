@@ -1,22 +1,9 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 
 const Marker = ({ map, position, label, url }) => {
-  const [marker, setMarker] = useState()
-
   useEffect(() => {
-    if (map && !marker) {
-      setMarker(new window.google.maps.Marker())
-
-      return () => {
-        if (marker) {
-          marker.setMap(null)
-        }
-      }
-    }
-  }, [map, marker])
-
-  useEffect(() => {
-    if (marker) {
+    if (map && label) {
+      const marker = new window.google.maps.Marker()
       marker.setOptions({
         position: position,
         label: label,
@@ -30,7 +17,8 @@ const Marker = ({ map, position, label, url }) => {
         window.location.replace(url)
       })
     }
-  }, [map, marker, position, label, url])
+  
+  }, [map, label, position, url])
 
   return null
 }
