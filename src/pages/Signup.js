@@ -7,10 +7,9 @@ import {
   Link,
 } from "@material-ui/core"
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
-import { Link as RouterLink } from "react-router-dom"
+import { Link as RouterLink, useNavigate } from "react-router-dom"
 import { useFormik } from "formik"
 import * as yup from "yup"
-import { v4 as uuidv4 } from 'uuid'
 import Api from "../helper/api"
 import Alert from "../components/ui/alert"
 import { useState } from "react"
@@ -31,8 +30,10 @@ const validationSchema = yup.object({
 })
 
 const Signup = () => {
+  const navigate = useNavigate()
   const [signupSuccess, setSignupSuccess] = useState(false)
   const [signupFailed, setSignupFailed] = useState(false)
+  const [errorMessage, setErrorMessage] = useState()
   const api = new Api()
   const paperStyle = {
     padding: 20,
@@ -59,13 +60,22 @@ const Signup = () => {
       setSignupFailed(false)
 
       const data = {
-        id: uuidv4(),
         ...values
       }
       api
         .signup(data)
-        .then((response) => setSignupSuccess(true))
-        .catch((err) => setSignupFailed(true))
+        .then((res) => {
+          const { access_token, refresh_token } = res.data
+          localStorage.setItem("accessToken", access_token)
+          localStorage.setItem("refreshToken", refresh_token)
+
+          navigate("/profile")
+        })
+        .catch((error) => {
+          const reason = error.response.data.reason
+
+          setErrorMessage(reason)
+        })
     },
   })
   return (
@@ -82,7 +92,12 @@ const Signup = () => {
           </Grid>
           <TextInput name="name" formik={formik} />
           <TextInput name="email" formik={formik} />
-          <TextInput name="password" formik={formik} />
+          <TextInput name="password" type="password" formik={formik} />
+          {errorMessage && (
+            <Typography style={{ color: "red", textAlign: "center" }}>
+              {errorMessage}
+            </Typography>
+          )}
           <Button
             variant="contained"
             type="submit"

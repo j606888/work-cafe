@@ -16,6 +16,7 @@ import Api from "../helper/api"
 import { useState } from "react"
 import Alert from "../components/ui/alert"
 import TextInput from "../components/input/TextInput"
+import { useNavigate } from "react-router-dom"
 
 const validationSchema = yup.object({
   email: yup
@@ -29,6 +30,7 @@ const validationSchema = yup.object({
 })
 
 const Login = () => {
+  const navigate = useNavigate()
   const api = new Api()
   const paperStyle = {
     padding: 20,
@@ -45,6 +47,7 @@ const Login = () => {
 
   const [loginSuccess, setLoginSuccess] = useState(false)
   const [loginFailed, setLoginFailed] = useState(false)
+  const [errorMessage, setErrorMessage] = useState()
 
   const formik = useFormik({
     initialValues: {
@@ -53,22 +56,33 @@ const Login = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
+      setErrorMessage()
       setLoginSuccess(false)
       setLoginFailed(false)
 
-      api.getUsers().then(({data: users}) => {
-        const user = users.find(u => u.email === values.email)
-  
-        if (user && user.password === values.password) {
-          setLoginSuccess(true)
-        } else {
-          setLoginFailed(true)
-        }
+      api.login(values).then((res) => {
+        const { access_token, refresh_token } = res.data
+        localStorage.setItem('accessToken', access_token)
+        localStorage.setItem("refreshToken", refresh_token)
+
+        navigate('/profile')
+      }).catch(error => {
+        const reason = error.response.data.reason
+
+        setErrorMessage(reason)
       })
     }
   })
+
+  const getMe = () => {
+    api.me().then((res) => {
+      const result = res.data
+      console.log(result)
+    })
+  }
   return (
     <Grid>
+      <button onClick={getMe}>Me</button>
       {loginSuccess && <Alert message="Login Success!" />}
       {loginFailed && <Alert message="Login Failed!" type="error" />}
       <Paper elevation={10} style={paperStyle}>
@@ -80,11 +94,16 @@ const Login = () => {
             <h2>Log In</h2>
           </Grid>
           <TextInput name="email" formik={formik} />
-          <TextInput name="password" formik={formik} />
+          <TextInput name="password" type="password" formik={formik} />
           <FormControlLabel
             control={<Checkbox name="checkedB" color="primary" />}
             label="Remember me"
           />
+          {errorMessage && (
+            <Typography style={{ color: "red", textAlign: "center" }}>
+              {errorMessage}
+            </Typography>
+          )}
           <Button
             variant="contained"
             type="submit"
