@@ -1,18 +1,18 @@
 import MapWrapper from "../components/google-map/MapWrapper"
+import NavbarContainer from "../components/layout/NavbarContainer"
 
 const GoogleMap = () => {
   return (
-    <div>
+    <NavbarContainer>
       <h1>My Map</h1>
       <div style={{
         display: 'flex',
         flexDirection: 'column',
         height: '100vh',
-        width: '100vw'
       }}>
         <MapWrapper />
       </div>
-    </div>
+    </NavbarContainer>
   )
 }
 

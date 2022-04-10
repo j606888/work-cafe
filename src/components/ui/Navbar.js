@@ -62,6 +62,9 @@ function Navbar() {
               <MenuItem component={RouterLink} to="/search-google-map-url">
                 Search GoogleMap
               </MenuItem>
+              <MenuItem component={RouterLink} to="/google-map">
+                Show GoogleMap
+              </MenuItem>
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
           </>

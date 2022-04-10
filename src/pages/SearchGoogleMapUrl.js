@@ -3,7 +3,6 @@ import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
 import { useRef, useState } from "react"
 import Api from "../helper/api"
-import StarIcon from "@material-ui/icons/Star"
 
 const SearchGoogleMapUrl = () => {
   const api = new Api()
@@ -39,6 +38,7 @@ const SearchGoogleMapUrl = () => {
           id="outlined-basic"
           label="Google Map Url"
           variant="outlined"
+          multiline={true}
           inputRef={inputEl}
         />
         <Button variant="contained" color="primary" onClick={handleSubmit}>
