@@ -5,6 +5,7 @@ import Login from "./pages/Login"
 import Profile from "./pages/Profile"
 import HomePage from "./pages/HomePage"
 import GoogleMap from "./pages/GoogleMap"
+import SearchGoogleMapUrl from "./pages/SearchGoogleMapUrl"
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/google-map" element={<GoogleMap />}></Route>
+        <Route path="/search-google-map-url" element={<SearchGoogleMapUrl />}></Route>
       </Routes>
     </div>
   )
