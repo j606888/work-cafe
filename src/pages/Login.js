@@ -67,8 +67,7 @@ const Login = () => {
 
         navigate('/profile')
       }).catch(error => {
-        const data = error.response.data
-        const reason = data.reason
+        const reason = error.response.data.reason
 
         setErrorMessage(reason)
       })

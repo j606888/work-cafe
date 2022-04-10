@@ -31,11 +31,14 @@ const Profile = () => {
             alignItems: "center",
           }}
         >
-          <Avatar style={{ width: 80, height: 80 }}>T</Avatar>
-          <h1>Test User</h1>
-          <p>email: test@test.com</p>
+          <Avatar style={{ width: 80, height: 80 }}>
+            {info.name[0].toUpperCase()}
+          </Avatar>
+          <h1>{info.name}</h1>
+          <p>{info.email}</p>
         </Paper>
       )}
+      {!info.id && (<h1>Loading...</h1>)}
     </Container>
   )
 }

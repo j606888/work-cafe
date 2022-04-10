@@ -25,17 +25,14 @@ export default class Api {
     return this.client
   }
 
-  signup = (data) => {
-    return this.init().post("/users", data)
+  signup = ({ name, email, password}) => {
+    const body = { name, email, password }
+    return this.init().post("/auth/signup", body)
   }
 
   login = ({ email, password }) => {
     const body = { email, password }
     return this.init().post("/auth/login", body)
-  }
-
-  getUsers = () => {
-    return this.init().get("/users")
   }
 
   me = () => {
