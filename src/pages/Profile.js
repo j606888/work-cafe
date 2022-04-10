@@ -1,7 +1,7 @@
 import Api from "../helper/api"
 import { useEffect, useState } from "react"
 import { Container, Paper, Avatar } from "@material-ui/core/"
-import Navbar from "../components/ui/Navbar"
+import NavbarContainer from "../components/layout/NavbarContainer"
 
 const api = new Api()
 
@@ -16,11 +16,10 @@ const Profile = () => {
   }, [])
 
   return (
-    <>
-      <Navbar />
+    <NavbarContainer>
       <Container
         maxWidth="sm"
-        style={{ backgroundColor: "#efefef", height: "100vh", padding: 40, marginTop: 60 }}
+        style={{padding: 40 }}
       >
         {info.id && (
           <Paper
@@ -42,7 +41,7 @@ const Profile = () => {
         )}
         {!info.id && <h1>Loading...</h1>}
       </Container>
-    </>
+    </NavbarContainer>
   )
 }
 

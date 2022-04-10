@@ -38,4 +38,10 @@ export default class Api {
   me = () => {
     return this.init().get("/user/me")
   }
+
+  parsePlaceId = (url) => {
+    const body = { url }
+    return this.init().post("/google_map/parse_place_id", body)
+  }
+
 }

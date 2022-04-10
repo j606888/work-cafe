@@ -27,13 +27,13 @@ function Navbar() {
   }
 
   const handleLogout = () => {
-    localStorage.clear("accessToken")
-    localStorage.clear("refreshToken")
+    localStorage.removeItem("accessToken")
+    localStorage.removeItem("refreshToken")
     setIsLogin(false)
   }
   
   return (
-    <AppBar position="fixed" color="primary">
+    <AppBar position="sticky" color="primary">
       <Toolbar>
         <LocalCafeIcon style={{ marginRight: 10 }} />
         <Typography variant="h6" style={{ flexGrow: 1 }}>
@@ -58,6 +58,9 @@ function Navbar() {
             >
               <MenuItem component={RouterLink} to="/profile">
                 Profile
+              </MenuItem>
+              <MenuItem component={RouterLink} to="/search-google-map-url">
+                Search GoogleMap
               </MenuItem>
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
