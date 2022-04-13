@@ -1,6 +1,6 @@
 const apiPath = {
   auth: {
-    register: "/api/v1/auth/register",
+    signup: "/auth/signup",
     login: "/auth/login",
     refresh: "/api/v1/auth/token",
   },

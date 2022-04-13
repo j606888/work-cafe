@@ -3,11 +3,8 @@ import {
   Avatar,
   Box,
   Container,
-  FormControlLabel,
-  Grid,
   Link,
   Typography,
-  Checkbox,
   Stack,
 } from "@mui/material"
 import { blue } from "@mui/material/colors"
@@ -16,22 +13,23 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import { useNavigate, Link as RouterLink } from "react-router-dom"
 import { useState } from "react"
 import { useFormik } from "formik"
-import { login } from "../apis/auth"
-import { LoginSchema } from "../helper/schema" 
+import { signup } from "../apis/auth"
+import { LoginSchema } from "../helper/schema"
 
-const LoginPage = () => {
+const SignupPage = () => {
   const navigate = useNavigate()
   const [errorMessage, setErrorMessage] = useState()
 
   const formik = useFormik({
     initialValues: {
+      name: "",
       email: "",
       password: "",
     },
     validationSchema: LoginSchema,
     onSubmit: (values) => {
       setErrorMessage()
-      login(values)
+      signup(values)
         .then((res) => {
           const { access_token, refresh_token } = res.data
           localStorage.setItem("accessToken", access_token)
@@ -55,20 +53,13 @@ const LoginPage = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Sign up
         </Typography>
-        <Box
-          component="form"
-          onSubmit={formik.handleSubmit}
-          noValidate
-          mt={1}
-        >
+        <Box component="form" onSubmit={formik.handleSubmit} noValidate mt={1}>
+          <TextInput name="name" formik={formik} />
           <TextInput name="email" formik={formik} />
           <TextInput name="password" type="password" formik={formik} />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+
           {errorMessage && (
             <Typography sx={{ color: "red", textAlign: "center" }}>
               {errorMessage}
@@ -80,24 +71,15 @@ const LoginPage = () => {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign In
+            Sign Up
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link component={RouterLink} variant="body2" to="/signup">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
+          <Link component={RouterLink} variant="body2" to="/login">
+            {"Already have account? Log in"}
+          </Link>
         </Box>
       </Stack>
     </Container>
   )
 }
 
-export default LoginPage
+export default SignupPage
