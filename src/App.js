@@ -1,6 +1,5 @@
 import "./App.css"
 import { Routes, Route } from "react-router-dom"
-// import Signup from "./pages/Signup"
 import LoginPage from "./pages/LoginPage"
 // import Profile from "./pages/Profile"
 // import HomePage from "./pages/HomePage"
