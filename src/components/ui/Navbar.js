@@ -1,9 +1,9 @@
-import { AppBar, Toolbar, Typography, Button} from "@material-ui/core"
-import IconButton from "@material-ui/core/IconButton"
-import AccountCircle from "@material-ui/icons/AccountCircle"
-import Menu from "@material-ui/core/Menu"
-import MenuItem from "@material-ui/core/MenuItem"
-import LocalCafeIcon from "@material-ui/icons/LocalCafe"
+import { AppBar, Toolbar, Typography, Button } from "@mui/material"
+import IconButton from "@mui/material/IconButton"
+import AccountCircle from "@mui/icons-material/AccountCircle"
+import Menu from "@mui/material/Menu"
+import MenuItem from "@mui/material/MenuItem"
+import LocalCafeIcon from "@mui/icons-material/LocalCafe"
 import { Link as RouterLink } from "react-router-dom"
 import { useState, useEffect } from 'react'
 
@@ -33,9 +33,9 @@ function Navbar() {
   }
   
   return (
-    <AppBar position="sticky" color="primary">
+    <AppBar>
       <Toolbar>
-        <LocalCafeIcon style={{ marginRight: 10 }} />
+        <LocalCafeIcon sx={{mr: 2}} />
         <Typography variant="h6" style={{ flexGrow: 1 }}>
           Work Cafe
         </Typography>
