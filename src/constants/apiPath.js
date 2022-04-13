@@ -5,7 +5,7 @@ const apiPath = {
     refresh: "/api/v1/auth/token",
   },
   user: {
-    information: "/api/v1/users/me",
+    me: "/user/me",
   },
   forms: {
     formList: "/api/v1/forms",
