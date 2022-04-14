@@ -1,18 +1,19 @@
+import { Stack } from "@mui/material"
 import MapWrapper from "../components/google-map/MapWrapper"
-import NavbarContainer from "../components/layout/NavbarContainer"
+import UserLayout from "../components/layout/UserLayout"
 
 const GoogleMap = () => {
   return (
-    <NavbarContainer>
-      <h1>My Map</h1>
-      <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100vh',
-      }}>
+    <UserLayout maxWidth="none">
+      <Stack
+        direction="column"
+        sx={{
+          height: "100vh",
+        }}
+      >
         <MapWrapper />
-      </div>
-    </NavbarContainer>
+      </Stack>
+    </UserLayout>
   )
 }
 

@@ -1,14 +1,12 @@
 import { Container, Box } from "@mui/material"
 import Navbar from "../ui/Navbar"
 
-const UserLayout = ({ children, mt=0 }) => {
+const UserLayout = ({ children, mt=0, maxWidth="sm" }) => {
   return (
     <>
       <Navbar />
-      <Container maxWidth="sm">
-        <Box mt={8 + mt}>
-          {children}
-        </Box>
+      <Container maxWidth={maxWidth}>
+        <Box mt={8 + mt}>{children}</Box>
       </Container>
     </>
   )
