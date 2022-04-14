@@ -7,12 +7,9 @@ const apiPath = {
   user: {
     me: "/user/me",
   },
-  forms: {
-    formList: "/api/v1/forms",
-  },
-  response: {
-    responseList: "/api/v1/responses",
-  },
+  stores: {
+    allStores: "/stores"
+  }
 }
 
 
