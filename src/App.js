@@ -5,6 +5,8 @@ import SignupPage from "./pages/SignupPage"
 import ProfilePage from "./pages/ProfilePage"
 import MapPage from "./pages/MapPage"
 import SearchGoogleMapUrl from "./pages/SearchGoogleMapUrl"
+import StoresPage from "./pages/StoresPage"
+import NewStore from "./pages/StoresPage/new-store"
 import PrivateRoute from "./pages/PrivateRoute"
 import "./apis/axios"
 
@@ -19,18 +21,16 @@ function App() {
               <ProfilePage />
             </PrivateRoute>
           }
-        ></Route>
-        <Route path="/login" element={<LoginPage />}></Route>
-        <Route path="/signup" element={<SignupPage />}></Route>
-        <Route path="/map" element={<MapPage />}></Route>
+        />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/map" element={<MapPage />} />
+        <Route path="/stores" element={<StoresPage />} />
+        <Route path="/new-store" element={<NewStore />} />
         <Route
           path="/search-google-map-url"
           element={<SearchGoogleMapUrl />}
         ></Route>{" "}
-        */
-        {/* <Route path="/" element={<HomePage />}></Route>
-        <Route path="/signup" element={<Signup />}></Route>
-        <Route path="/profile" element={<Profile />}></Route> */}
       </Routes>
     </AuthProvider>
   )
