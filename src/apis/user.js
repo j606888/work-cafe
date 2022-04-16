@@ -1,6 +1,6 @@
 import apiPath from "../config/apiPath"
-import axiosInstance from "."
+import authAxios from "./axios/authAxios"
 
 export const me = () => {
-  return axiosInstance.get(apiPath.user.me)
+  return authAxios.get(apiPath.user.me)
 }

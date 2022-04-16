@@ -8,7 +8,7 @@ import ProfilePage from "./pages/ProfilePage"
 import GoogleMap from "./pages/GoogleMap"
 import SearchGoogleMapUrl from "./pages/SearchGoogleMapUrl"
 import PrivateRoute from "./pages/PrivateRoute"
-import "./apis/index"
+import "./apis/axios"
 
 function App() {
   return (
