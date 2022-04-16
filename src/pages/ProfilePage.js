@@ -14,15 +14,15 @@ const ProfilePage = () => {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    me()
-      .then((res) => {
-        const { id, email, name } = res.data
-        setUser({ id, email, name })
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    const fetchUser = async () => {
+      const res = await me()
+      const { id, email, name } = res.data
+      setUser({ id, email, name })
+    }
+
+    fetchUser()
   }, [])
+
   return (
     <UserLayout mt={5} >
         {user ? (

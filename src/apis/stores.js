@@ -1,12 +1,13 @@
 import apiPath from "../constants/apiPath"
-import axios from "axios"
+import customAxios from "."
+
 
 export const allStores = () => {
-  return axios.get(apiPath.stores.allStores)
+  return customAxios.get(apiPath.stores.allStores)
 }
 
 export const newStore = (url) => {
   const body = JSON.stringify({ url })
 
-  return axios.post(apiPath.stores.newStore, body)
+  return customAxios.post(apiPath.stores.newStore, body)
 }
