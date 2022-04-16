@@ -1,20 +1,23 @@
 import { Stack } from "@mui/material"
-import MapWrapper from "../components/google-map/MapWrapper"
 import UserLayout from "../components/layout/UserLayout"
+import { Wrapper } from "@googlemaps/react-wrapper"
+import Map from '../feature/Map'
 
-const Map = () => {
+
+const MapPage = () => {
   return (
     <UserLayout maxWidth="none">
       <Stack
-        direction="column"
         sx={{
           height: "100vh",
         }}
       >
-        <MapWrapper />
+        <Wrapper apiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY}>
+          <Map />
+        </Wrapper>
       </Stack>
     </UserLayout>
   )
 }
 
-export default Map
+export default MapPage

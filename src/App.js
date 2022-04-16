@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom"
 import LoginPage from "./pages/LoginPage"
 import SignupPage from "./pages/SignupPage"
 import ProfilePage from "./pages/ProfilePage"
-import Map from "./pages/Map"
+import MapPage from "./pages/MapPage"
 import SearchGoogleMapUrl from "./pages/SearchGoogleMapUrl"
 import PrivateRoute from "./pages/PrivateRoute"
 import "./apis/axios"
@@ -22,7 +22,7 @@ function App() {
         ></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/signup" element={<SignupPage />}></Route>
-        <Route path="/map" element={<Map />}></Route>
+        <Route path="/map" element={<MapPage />}></Route>
         <Route
           path="/search-google-map-url"
           element={<SearchGoogleMapUrl />}
