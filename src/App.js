@@ -5,7 +5,7 @@ import SignupPage from "./pages/SignupPage"
 import ProfilePage from "./pages/ProfilePage"
 // import HomePage from "./pages/HomePage"
 import GoogleMap from "./pages/GoogleMap"
-// import SearchGoogleMapUrl from "./pages/SearchGoogleMapUrl"
+import SearchGoogleMapUrl from "./pages/SearchGoogleMapUrl"
 import './apis/index'
 
 function App() {
@@ -16,10 +16,10 @@ function App() {
         <Route path="/signup" element={<SignupPage />}></Route>
         <Route path="/profile" element={<ProfilePage />}></Route>
         <Route path="/google-map" element={<GoogleMap />}></Route>
+        <Route path="/search-google-map-url" element={<SearchGoogleMapUrl />}></Route> */
         {/* <Route path="/" element={<HomePage />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
-        <Route path="/profile" element={<Profile />}></Route>
-        <Route path="/search-google-map-url" element={<SearchGoogleMapUrl />}></Route> */}
+        <Route path="/profile" element={<Profile />}></Route> */}
       </Routes>
     </div>
   )

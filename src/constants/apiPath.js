@@ -8,7 +8,8 @@ const apiPath = {
     me: "/user/me",
   },
   stores: {
-    allStores: "/stores"
+    allStores: "/stores",
+    newStore: "/google_map/parse_place_id"
   }
 }
 
