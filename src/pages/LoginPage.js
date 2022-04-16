@@ -14,12 +14,14 @@ import { blue } from "@mui/material/colors"
 import TextInput from "../components/input/TextInput"
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import { useNavigate, Link as RouterLink } from "react-router-dom"
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { useFormik } from "formik"
 import { login } from "../apis/auth"
 import { LoginSchema } from "../helper/schema" 
+import AuthContext from "../context/AuthContext"
 
 const LoginPage = () => {
+  const { loginUser } = useContext(AuthContext)
   const navigate = useNavigate()
   const [errorMessage, setErrorMessage] = useState()
 
@@ -34,9 +36,7 @@ const LoginPage = () => {
       login(values)
         .then((res) => {
           const { access_token, refresh_token } = res.data
-          localStorage.setItem("accessToken", access_token)
-          localStorage.setItem("refreshToken", refresh_token)
-
+          loginUser({ access_token, refresh_token })
           navigate("/profile")
         })
         .catch((error) => {

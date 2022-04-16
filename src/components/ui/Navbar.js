@@ -5,9 +5,11 @@ import Menu from "@mui/material/Menu"
 import MenuItem from "@mui/material/MenuItem"
 import LocalCafeIcon from "@mui/icons-material/LocalCafe"
 import { Link as RouterLink } from "react-router-dom"
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import AuthContext from "../../context/AuthContext"
 
 function Navbar() {
+  const { user } = useContext(AuthContext)
   const [isLogin, setIsLogin] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
 
@@ -35,9 +37,12 @@ function Navbar() {
   return (
     <AppBar>
       <Toolbar>
-        <LocalCafeIcon sx={{mr: 2}} />
+        <LocalCafeIcon sx={{ mr: 2 }} />
         <Typography variant="h6" style={{ flexGrow: 1 }}>
           Work Cafe
+        </Typography>
+        <Typography variant="h6" style={{ flexGrow: 1 }}>
+          Hello, {user.email}
         </Typography>
         {isLogin && (
           <>
