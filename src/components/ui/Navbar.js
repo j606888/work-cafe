@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Typography, Button } from "@mui/material"
+import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material"
 import IconButton from "@mui/material/IconButton"
 import AccountCircle from "@mui/icons-material/AccountCircle"
 import Menu from "@mui/material/Menu"
@@ -9,7 +9,7 @@ import { useState, useEffect, useContext } from 'react'
 import AuthContext from "../../context/AuthContext"
 
 function Navbar() {
-  const { user, logoutUser } = useContext(AuthContext)
+  const { logoutUser } = useContext(AuthContext)
   const [isLogin, setIsLogin] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
 
@@ -36,12 +36,23 @@ function Navbar() {
     <AppBar>
       <Toolbar>
         <LocalCafeIcon sx={{ mr: 2 }} />
-        <Typography variant="h6" style={{ flexGrow: 1 }}>
-          Work Cafe
-        </Typography>
-        <Typography variant="h6" style={{ flexGrow: 1 }}>
-          Hello, {user && user.email}
-        </Typography>
+        <Typography variant="h6">Work Cafe</Typography>
+        <Box sx={{ flexGrow: 1, display: "flex" }}>
+          <Button
+            sx={{ color: "white", display: "block" }}
+            component={RouterLink}
+            to="/stores"
+          >
+            所有店家
+          </Button>
+          <Button
+            sx={{ color: "white", display: "block" }}
+            component={RouterLink}
+            to="/new-store"
+          >
+            新增店家
+          </Button>
+        </Box>
         {isLogin && (
           <>
             <IconButton
