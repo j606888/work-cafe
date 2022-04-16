@@ -2,7 +2,7 @@ import { Stack } from "@mui/material"
 import MapWrapper from "../components/google-map/MapWrapper"
 import UserLayout from "../components/layout/UserLayout"
 
-const GoogleMap = () => {
+const Map = () => {
   return (
     <UserLayout maxWidth="none">
       <Stack
@@ -17,4 +17,4 @@ const GoogleMap = () => {
   )
 }
 
-export default GoogleMap
+export default Map
