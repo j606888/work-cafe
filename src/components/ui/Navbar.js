@@ -9,7 +9,7 @@ import { useState, useEffect, useContext } from 'react'
 import AuthContext from "../../context/AuthContext"
 
 function Navbar() {
-  const { user } = useContext(AuthContext)
+  const { user, logoutUser } = useContext(AuthContext)
   const [isLogin, setIsLogin] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
 
@@ -29,9 +29,7 @@ function Navbar() {
   }
 
   const handleLogout = () => {
-    localStorage.removeItem("accessToken")
-    localStorage.removeItem("refreshToken")
-    setIsLogin(false)
+    logoutUser()
   }
   
   return (
@@ -42,7 +40,7 @@ function Navbar() {
           Work Cafe
         </Typography>
         <Typography variant="h6" style={{ flexGrow: 1 }}>
-          Hello, {user.email}
+          Hello, {user && user.email}
         </Typography>
         {isLogin && (
           <>

@@ -6,22 +6,12 @@ import {
   CircularProgress,
 } from "@mui/material"
 import { blue } from "@mui/material/colors"
-import { useEffect, useState } from "react"
-import { me } from "../apis/user"
+import { useContext } from "react"
 import UserLayout from "../components/layout/UserLayout"
+import AuthContext from "../context/AuthContext"
 
 const ProfilePage = () => {
-  const [user, setUser] = useState(null)
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const res = await me()
-      const { id, email, name } = res.data
-      setUser({ id, email, name })
-    }
-
-    fetchUser()
-  }, [])
+  const { user } = useContext(AuthContext)
 
   return (
     <UserLayout mt={5} >

@@ -13,9 +13,9 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   async (req) => {
     const accessToken = localStorage.getItem("accessToken")
-    if (accessToken) {
-      req.headers.Authorization = `Bearer ${accessToken}`
-    }
+    if (!accessToken) return req
+  
+    req.headers.Authorization = `Bearer ${accessToken}`
 
     const user = jwt_decode(accessToken)
     const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1
