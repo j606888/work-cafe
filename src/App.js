@@ -14,19 +14,17 @@ function App() {
   return (
     <AuthProvider>
       <Routes>
-        <Route
-          path="/profile"
-          element={
-            <PrivateRoute>
-              <ProfilePage />
-            </PrivateRoute>
-          }
-        />
+        {/* <Route path="profile" element={<PrivateRoute />}>
+          <Route path="/profile" element={<ProfilePage />} />
+        </Route> */}
+        <Route element={<PrivateRoute />}>
+          <Route path="profile" element={<ProfilePage />} />
+          <Route path="new-store" element={<NewStore />} />
+        </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/map" element={<MapPage />} />
         <Route path="/stores" element={<StoresPage />} />
-        <Route path="/new-store" element={<NewStore />} />
         <Route
           path="/search-google-map-url"
           element={<SearchGoogleMapUrl />}
