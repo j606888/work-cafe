@@ -1,4 +1,4 @@
-import apiPath from "../constants/apiPath"
+import apiPath from "../config/apiPath"
 import customAxios from "."
 
 export const login = (data) => {

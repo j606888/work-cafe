@@ -7,7 +7,7 @@ import ProfilePage from "./pages/ProfilePage"
 // import HomePage from "./pages/HomePage"
 import GoogleMap from "./pages/GoogleMap"
 import SearchGoogleMapUrl from "./pages/SearchGoogleMapUrl"
-import PrivateRoute from "./utils/PrivateRoute"
+import PrivateRoute from "./pages/PrivateRoute"
 import "./apis/index"
 
 function App() {
