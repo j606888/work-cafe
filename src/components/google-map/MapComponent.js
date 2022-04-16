@@ -4,7 +4,7 @@ import Searcher from "./Searcher"
 import Markers from "./Markers"
 import CurrentPosition from "./CurrentPosition"
 
-function MyMapComponent() {
+function MapComponent() {
   const ref = useRef(null)
   const [map, setMap] = useState()
 
@@ -35,4 +35,4 @@ function MyMapComponent() {
   )
 }
 
-export default MyMapComponent
+export default MapComponent

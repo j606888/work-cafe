@@ -1,11 +1,10 @@
-import NavbarContainer from "../components/layout/NavbarContainer"
-import TextField from "@material-ui/core/TextField"
-import Button from "@material-ui/core/Button"
+import UserLayout from "../components/layout/UserLayout"
+import TextField from "@mui/material/TextField"
+import Button from "@mui/material/Button"
 import { useRef, useState } from "react"
-import Api from "../helper/api"
+import { newStore } from "../apis/stores"
 
 const SearchGoogleMapUrl = () => {
-  const api = new Api()
   const inputEl = useRef(null)
   const [errorMessage, setErrorMessage] = useState()
   const [place, setPlace] = useState()
@@ -13,8 +12,7 @@ const SearchGoogleMapUrl = () => {
   const handleSubmit = () => {
     setErrorMessage(null)
     const url = inputEl.current.value
-    api
-      .parsePlaceId(url)
+    newStore(url)
       .then((res) => {
         const result = res.data
         setPlace(result)
@@ -27,8 +25,8 @@ const SearchGoogleMapUrl = () => {
   }
 
   return (
-    <NavbarContainer>
-      <h1>Search Google Map Url</h1>
+    <UserLayout mt={5}>
+      <h1>Create new Store</h1>
       {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
       <form
         autoComplete="off"
@@ -53,7 +51,7 @@ const SearchGoogleMapUrl = () => {
           <p>評分：{place.rating}</p>
         </div>
       )}
-    </NavbarContainer>
+    </UserLayout>
   )
 }
 

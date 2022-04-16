@@ -1,34 +1,29 @@
+import { useEffect, useState } from "react"
 import Marker from "./Marker"
+import { allStores } from '../../apis/stores'
 
-const DATA = [
-  {
-    label: "A",
-    position: {
-      lat: 23.000332,
-      lng: 120.2036,
-    },
-    url: "https://maps.google.com/?cid=3147295990099717888",
-  },
-  {
-    label: "C",
-    position: {
-      lat: 22.9988214,
-      lng: 120.2087184,
-    },
-    url: "https://maps.google.com/?cid=14268726120835623923",
-  },
-]
 const Markers = ({ map }) => {
-  const markers = DATA.map((marker) => {
-    return (
-      <Marker
-        key={marker.label}
-        map={map}
-        label={marker.label}
-        position={marker.position}
-        url={marker.url}
-      />
-    )
+  const [stores, setStores] = useState(null)
+  useEffect(() => {
+    allStores().then(res => {
+      const { stores: storesData, paging } = res.data
+
+      setStores(storesData)
+    })
+  }, [])
+
+  const markers = stores && stores.map(store => {
+    const position = {
+      lat: store.location_lat,
+      lng: store.location_lng
+    }
+    return <Marker
+      key={store.id}
+      map={map}
+      label={store.name}
+      position={position}
+      url={store.url}
+    /> 
   })
   return <>{markers}</>
 }

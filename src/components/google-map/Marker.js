@@ -1,13 +1,14 @@
 import { useEffect } from "react"
 
-const Marker = ({ map, position, label, url }) => {
+const Marker = ({ map, position, label, url, icon }) => {
   useEffect(() => {
     if (map && label) {
       const marker = new window.google.maps.Marker()
       marker.setOptions({
-        position: position,
-        label: label,
-        map: map,
+        position,
+        label,
+        map,
+        icon
       })
 
       marker.addListener("click", () => {
@@ -18,7 +19,7 @@ const Marker = ({ map, position, label, url }) => {
       })
     }
   
-  }, [map, label, position, url])
+  }, [map, label, position, url, icon])
 
   return null
 }
