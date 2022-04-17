@@ -8,7 +8,7 @@ import MapUrlsIndex from "./pages/admin/map-urls"
 import {
   HomePage,
   Login,
-  SignupPage,
+  Signup,
   ProfilePage,
   MapPage
 } from './pages'
@@ -19,7 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/map" element={<MapPage />} />
         <Route path="/stores" element={<StoresPage />} />
         <Route element={<PrivateRoute />}>

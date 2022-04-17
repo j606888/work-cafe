@@ -1,7 +1,7 @@
 import HomePage from "./HomePage";
 import Login from "./Login";
-import SignupPage from "./SignupPage";
+import Signup from "./Signup"
 import ProfilePage from "./ProfilePage";
 import MapPage from "./MapPage";
 
-export { HomePage, Login, SignupPage, ProfilePage, MapPage }
+export { HomePage, Login, Signup, ProfilePage, MapPage }
