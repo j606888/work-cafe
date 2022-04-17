@@ -7,7 +7,7 @@ import PrivateRoute from "./pages/PrivateRoute"
 import MapUrlsIndex from "./pages/admin/map-urls"
 import {
   HomePage,
-  LoginPage,
+  Login,
   SignupPage,
   ProfilePage,
   MapPage
@@ -18,7 +18,7 @@ function App() {
     <AuthProvider>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/map" element={<MapPage />} />
         <Route path="/stores" element={<StoresPage />} />
