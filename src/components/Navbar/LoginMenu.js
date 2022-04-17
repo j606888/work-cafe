@@ -9,25 +9,13 @@ const LoginMenu = () => {
   const { logoutUser } = useContext(AuthContext)
   const [anchorEl, setAnchorEl] = useState(null)
 
-  const handleOpenMenu = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
-
-  const handleCloseMenu = () => {
-    setAnchorEl(null)
-  }
-
-  const handleLogout = () => {
-    logoutUser()
-  }
-
   return (
     <>
       <IconButton
         color="inherit"
         aria-controls="use-menu"
         aria-haspopup="true"
-        onClick={handleOpenMenu}
+        onClick={(e) => setAnchorEl(e.currentTarget)}
       >
         <AccountCircle />
       </IconButton>
@@ -36,12 +24,12 @@ const LoginMenu = () => {
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
-        onClose={handleCloseMenu}
+        onClose={() => setAnchorEl(null)}
       >
         <MenuItem component={RouterLink} to="/profile">
           Profile
         </MenuItem>
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        <MenuItem onClick={() => logoutUser()}>Logout</MenuItem>
       </Menu>
     </>
   )

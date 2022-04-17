@@ -1,7 +1,6 @@
 import * as React from "react"
 import Box from "@mui/material/Box"
 import Drawer from "@mui/material/Drawer"
-import Button from "@mui/material/Button"
 import List from "@mui/material/List"
 import Stack from "@mui/material/Stack"
 import ListItem from "@mui/material/ListItem"
@@ -90,8 +89,12 @@ export default function StoreDrawer({ id, setStoreId }) {
               <ListItemText primary="營業時間" />
             </ListItem>
             <Stack ml={12}>
-              {store.source_data.opening_hours.map(hour => {
-                return <Typography key={hour} variant="subtitle1" mb={1}>{hour}</Typography>
+              {store.source_data.opening_hours.map((hour) => {
+                return (
+                  <Typography key={hour} variant="subtitle1" mb={1}>
+                    {hour}
+                  </Typography>
+                )
               })}
             </Stack>
           </List>
@@ -101,11 +104,8 @@ export default function StoreDrawer({ id, setStoreId }) {
   )
 
   return (
-    <div>
-      <Button onClick={toggleDrawer(true)}>{"left"}</Button>
-      <Drawer anchor={"left"} open={state} onClose={toggleDrawer(false)}>
-        {list()}
-      </Drawer>
-    </div>
+    <Drawer anchor={"left"} open={state} onClose={toggleDrawer(false)}>
+      {list()}
+    </Drawer>
   )
 }
