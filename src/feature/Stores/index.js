@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
 import { allStores } from "../../apis/stores"
 import Link from "@mui/material/Link"
+import RatingStars from '../../components/ui/RatingStars'
 
 export default function Stores() {
   const [stores, setStores] = useState([])
@@ -47,7 +48,9 @@ export default function Stores() {
               <TableCell align="right">{store.id}</TableCell>
               <TableCell align="right">{store.phone}</TableCell>
               <TableCell align="right">{`${store.lat},${store.lng}`}</TableCell>
-              <TableCell align="right">{store.rating}</TableCell>
+              <TableCell align="right">
+                <RatingStars rating={store.rating} />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

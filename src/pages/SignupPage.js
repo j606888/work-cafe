@@ -15,6 +15,7 @@ import { useState } from "react"
 import { useFormik } from "formik"
 import { signup } from "../apis/auth"
 import { LoginSchema } from "../helper/schema"
+import UserLayout from "../components/layout/UserLayout"
 
 const SignupPage = () => {
   const navigate = useNavigate()
@@ -47,38 +48,45 @@ const SignupPage = () => {
   })
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Stack alignItems="center" mt={6}>
-        <Avatar sx={{ m: 1, bgcolor: blue[800] }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
-        <Box component="form" onSubmit={formik.handleSubmit} noValidate mt={1}>
-          <TextInput name="name" formik={formik} />
-          <TextInput name="email" formik={formik} />
-          <TextInput name="password" type="password" formik={formik} />
-
-          {errorMessage && (
-            <Typography sx={{ color: "red", textAlign: "center" }}>
-              {errorMessage}
-            </Typography>
-          )}
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+    <UserLayout maxWidth="none">
+      <Container component="main" maxWidth="xs">
+        <Stack alignItems="center" mt={12}>
+          <Avatar sx={{ m: 1, bgcolor: blue[800] }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <Box
+            component="form"
+            onSubmit={formik.handleSubmit}
+            noValidate
+            mt={1}
           >
-            Sign Up
-          </Button>
-          <Link component={RouterLink} variant="body2" to="/login">
-            {"Already have account? Log in"}
-          </Link>
-        </Box>
-      </Stack>
-    </Container>
+            <TextInput name="name" formik={formik} />
+            <TextInput name="email" formik={formik} />
+            <TextInput name="password" type="password" formik={formik} />
+
+            {errorMessage && (
+              <Typography sx={{ color: "red", textAlign: "center" }}>
+                {errorMessage}
+              </Typography>
+            )}
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign Up
+            </Button>
+            <Link component={RouterLink} variant="body2" to="/login">
+              {"Already have account? Log in"}
+            </Link>
+          </Box>
+        </Stack>
+      </Container>
+    </UserLayout>
   )
 }
 
