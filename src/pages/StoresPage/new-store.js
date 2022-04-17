@@ -6,25 +6,39 @@ import { listMapUrls } from "../../apis/map_url"
 
 const NewStore = () => {
   const [mapUrls, setMapUrls] = useState([])
+  const [page, setPage] = useState(1)
+  const [per, setPer] = useState(10)
   const [paging, setPaging] = useState(null)
 
+  function handleCreate() {
+    fetchMapUrls(page, per)
+  }
+
+  async function fetchMapUrls(page, per) {
+    const res = await listMapUrls(page, per)
+    const { map_urls, paging } = res.data
+
+    setMapUrls(map_urls)
+    setPaging(paging)
+  }
+
   useEffect(() => {
-    async function fetchMapUrls() {
-      const res = await listMapUrls()
-      const { map_urls, paging } = res.data
-
-      setMapUrls(map_urls)
-      setPaging(paging)
-      console.log(paging)
-    }
-
-    fetchMapUrls()
-  }, [])
+    console.log("GO")
+    fetchMapUrls(page, per)
+  }, [page, per])
 
   return (
     <UserLayout maxWidth="none" mt={3}>
-      <NewMapUrl />
-      {paging && <MapUserList mapUrls={mapUrls} paging={paging} />}
+      <NewMapUrl newMapUrlCreated={handleCreate} />
+      {paging && (
+        <MapUserList
+          mapUrls={mapUrls}
+          paging={paging}
+          setPage={setPage}
+          setPer={setPer}
+          per={per}
+        />
+      )}
     </UserLayout>
   )
 }

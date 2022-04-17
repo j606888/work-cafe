@@ -9,6 +9,7 @@ import TableHead from "@mui/material/TableHead"
 import TablePagination from "@mui/material/TablePagination"
 import TableRow from "@mui/material/TableRow"
 import dayjs from "dayjs"
+import { Chip } from "@mui/material"
 
 const columns = [
   { id: "name", label: "店名", minWidth: 120 },
@@ -35,17 +36,19 @@ const columns = [
   },
 ]
 
-export default function MapUserList({ mapUrls, paging }) {
-  const [page, setPage] = React.useState(0)
-  const [rowsPerPage, setRowsPerPage] = React.useState(10)
-
+const CHIP_COLOR_MAP = {
+  created: "warning",
+  accept: "success",
+  deny: "error",
+}
+export default function MapUserList({ mapUrls, paging, setPage, setPer, per }) {
   const handleChangePage = (event, newPage) => {
-    setPage(newPage)
+    setPage(newPage + 1)
   }
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value)
-    setPage(0)
+    setPer(+event.target.value)
+    setPage(1)
   }
 
   return (
@@ -70,8 +73,12 @@ export default function MapUserList({ mapUrls, paging }) {
               return (
                 <TableRow hover role="checkbox" tabIndex={-1} key={mapUrl.id}>
                   <TableCell align="left">{mapUrl.keyword}</TableCell>
-                  <TableCell align="left">{mapUrl.status}</TableCell>
-                  <TableCell align="right">{dayjs(mapUrl.created_at).format('YYYY/MM/DD')}</TableCell>
+                  <TableCell align="left">
+                    <Chip label={mapUrl.status} color={CHIP_COLOR_MAP[mapUrl.status]} />
+                  </TableCell>
+                  <TableCell align="right">
+                    {dayjs(mapUrl.created_at).format("YYYY/MM/DD")}
+                  </TableCell>
                   <TableCell align="right">
                     <Link href={mapUrl.url} target="_blank" rel="noopener">
                       Check
@@ -87,7 +94,7 @@ export default function MapUserList({ mapUrls, paging }) {
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
         count={paging.total_count}
-        rowsPerPage={10}
+        rowsPerPage={per}
         page={paging.current_page - 1}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}

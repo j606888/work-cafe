@@ -9,7 +9,7 @@ import { useState } from "react"
 const URL_PLACEHOLDER =
   "https://www.google.com/maps/place/%E8%91%89%E6%98%8E%E8%87%B4%E9%BA%B5%E8%88%96/@22.9913027,120.2089765,17z/data=!4m5!3m4!1s0x0:0xb9084e53b40d39f8!8m2!3d22.9913027!4d120.2111652"
 
-export default function NewMapUrl() {
+export default function NewMapUrl({ newMapUrlCreated }) {
     const [open, setOpen] = useState(false)
 
     const formik = useFormik({
@@ -27,6 +27,7 @@ export default function NewMapUrl() {
             },
           })
           setOpen(true)
+          newMapUrlCreated()
         }
       },
     })
@@ -45,7 +46,6 @@ export default function NewMapUrl() {
         noValidate
         mt={1}
       >
-        <h1>新增店家</h1>
         <Stack sx={{ width: "100%" }}>
           <Alert serverity="info" sx={{ textAlign: "left" }}>
             複製貼上 Google Map 的連結即可。大約 2 - 3
