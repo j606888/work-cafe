@@ -1,7 +1,7 @@
 import UserLayout from "../../../components/layout/UserLayout"
 import { useEffect, useState } from "react"
 import { listmapUrls } from "../../../apis/admin/map_url"
-import MapUserList from "../../../feature/Admin/MapUrl/MapUrlLlist"
+import MapUserList from "./MapUrlLlist"
 
 export default function MapUrlsIndex() {
   const [mapUrls, setMapUrls] = useState([])

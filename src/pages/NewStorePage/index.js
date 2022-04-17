@@ -1,6 +1,6 @@
 import UserLayout from "../../components/layout/UserLayout"
-import NewMapUrl from "../../feature/MapUrl/NewMapUrl"
-import MapUserList from "../../feature/MapUrl/MapUrlList"
+import NewMapUrl from "./NewMapUrl"
+import MapUserList from "./MapUrlList"
 import { useEffect, useState } from "react"
 import { listMapUrls } from "../../apis/map_url"
 

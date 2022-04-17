@@ -3,15 +3,15 @@ import { Routes, Route } from "react-router-dom"
 import { AuthProvider } from "./context/AuthContext"
 import StoresPage from "./pages/StoresPage"
 import PrivateRoute from "./pages/PrivateRoute"
-import MapUrlsIndex from "./pages/admin/map-urls"
 import {
   HomePage,
   LoginPage,
   SignupPage,
   ProfilePage,
   MapPage,
-  NewStorePage
-} from './pages'
+  NewStorePage,
+  AdminMapUrls,
+} from "./pages"
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route path="profile" element={<ProfilePage />} />
           <Route path="stores/new" element={<NewStorePage />} />
-          <Route path="admin/map-urls" element={<MapUrlsIndex />} />
+          <Route path="admin/map-urls" element={<AdminMapUrls />} />
         </Route>
       </Routes>
     </AuthProvider>

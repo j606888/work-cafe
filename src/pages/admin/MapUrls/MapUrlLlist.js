@@ -50,7 +50,7 @@ const CHIP_COLOR_MAP = {
   accept: "success",
   deny: "error",
 }
-export default function MapUserList({ mapUrls, paging, setPage, setPer, per, refreshList }) {
+export default function MapUrlList({ mapUrls, paging, setPage, setPer, per, refreshList }) {
   const [openModal, setOpenModal] = React.useState(false)
   const [modalMapUrlId, setModalMapUrlId] = React.useState(null)
 
