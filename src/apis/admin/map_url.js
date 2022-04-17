@@ -1,7 +1,7 @@
 import authAxios from "../axios/authAxios";
 import apiPath from "../../config/apiPath";
 
-export const listmapUrls = ({state, page, per}) => {
+export const getAllMapurls = ({state, page, per}) => {
   const params = {
     // state,
     page,
@@ -11,7 +11,7 @@ export const listmapUrls = ({state, page, per}) => {
   // if (state !== null || state !== "") {
   //   params.state = state
   // }
-  return authAxios.get(apiPath.admin.mapUrl.listMapUrls, { params })
+  return authAxios.get(apiPath.admin.mapUrl.getAllMapurls, { params })
 }
 
 export const denyMapUrl = (id) => {

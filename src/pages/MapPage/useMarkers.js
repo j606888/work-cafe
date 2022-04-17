@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
-import { allStores } from "../../apis/stores"
+import { getAllStores } from "../../apis/stores"
 
 const useMarkers = (map, setStoreId) => {
   const [markers, setMarkers] = useState([])
 
   useEffect(() => {
     const getStores = async () => {
-      const res = await allStores()
+      const res = await getAllStores()
       const { stores, paging } = res.data
 
       const storeMarkers = stores.map((store) => {

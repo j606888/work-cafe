@@ -2,7 +2,7 @@ import UserLayout from "../../components/layout/UserLayout"
 import NewMapUrl from "./NewMapUrl"
 import MapUserList from "./MapUrlList"
 import { useEffect, useState } from "react"
-import { listMapUrls } from "../../apis/map_url"
+import { getAllMapUrls } from "../../apis/map_url"
 
 const NewStorePage = () => {
   const [mapUrls, setMapUrls] = useState([])
@@ -15,7 +15,7 @@ const NewStorePage = () => {
   }
 
   async function fetchMapUrls(page, per) {
-    const res = await listMapUrls(page, per)
+    const res = await getAllMapUrls(page, per)
     const { map_urls, paging } = res.data
 
     setMapUrls(map_urls)

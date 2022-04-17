@@ -1,6 +1,6 @@
 import UserLayout from "../../../components/layout/UserLayout"
 import { useEffect, useState } from "react"
-import { listmapUrls } from "../../../apis/admin/map_url"
+import { getAllMapurls } from "../../../apis/admin/map_url"
 import MapUserList from "./MapUrlLlist"
 
 export default function MapUrlsIndex() {
@@ -11,7 +11,7 @@ export default function MapUrlsIndex() {
   const [paging, setPaging] = useState(null)
 
   async function fetchMapUrls({ page, per, state }) {
-    const res = await listmapUrls({ state, page, per })
+    const res = await getAllMapurls({ state, page, per })
     const { map_urls, paging } = res.data
 
     setMapUrls(map_urls)

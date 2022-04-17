@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
-import { allStores } from "../../apis/stores"
+import { getAllStores } from "../../apis/stores"
 import Link from "@mui/material/Link"
 import RatingStars from "../../components/ui/RatingStars"
 
@@ -16,7 +16,7 @@ const StoresPage = () => {
 
   useEffect(() => {
     const callAPI = async () => {
-      const res = await allStores()
+      const res = await getAllStores()
       setStores(res.data.stores)
     }
 

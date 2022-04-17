@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react"
-import { me } from "../apis/user"
+import { getInfo } from "../apis/user"
 
 const AuthContext = createContext({
   loginUser: () => {},
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("accessToken", access_token)
     localStorage.setItem("refreshToken", refresh_token)
 
-    const res = await me()
+    const res = await getInfo()
     const { id, email, name } = res.data
     setUser({ id, email, name })
     setIsLogin(true)
