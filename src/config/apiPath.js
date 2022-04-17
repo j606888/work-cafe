@@ -12,7 +12,8 @@ const apiPath = {
     newStore: "/google_map/parse_place_id"
   },
   mapUrl: {
-    newMapUrl: "/user/map_urls"
+    newMapUrl: "/user/map_urls",
+    listMapUrls: "/user/map_urls"
   }
 }
 

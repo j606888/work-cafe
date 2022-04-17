@@ -6,3 +6,7 @@ export const newMapUrl = (url) => {
 
   return authAxios.post(apiPath.mapUrl.newMapUrl, body)
 }
+
+export const listMapUrls = () => {
+  return authAxios.get(apiPath.mapUrl.listMapUrls)
+}
