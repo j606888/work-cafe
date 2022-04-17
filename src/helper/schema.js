@@ -10,5 +10,3 @@ export const LoginSchema = yup.object({
     .min(6, "Password must greater than 6")
     .required("Password is required"),
 })
-
-// export const login = {}
