@@ -52,6 +52,13 @@ function Navbar() {
           >
             新增店家
           </Button>
+          <Button
+            sx={{ color: "white", display: "block" }}
+            component={RouterLink}
+            to="/admin/map-urls"
+          >
+            審核 MapUrl
+          </Button>
         </Box>
         {isLogin && (
           <>

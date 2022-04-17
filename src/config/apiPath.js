@@ -14,6 +14,11 @@ const apiPath = {
   mapUrl: {
     newMapUrl: "/user/map_urls",
     listMapUrls: "/user/map_urls"
+  },
+  admin: {
+    mapUrl: {
+      listMapUrls: "/admin/map_urls"
+    }
   }
 }
 
