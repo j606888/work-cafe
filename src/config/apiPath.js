@@ -9,8 +9,20 @@ const apiPath = {
   },
   stores: {
     allStores: "/stores",
-    newStore: "/google_map/parse_place_id"
-  }
+    newStore: "/google_map/parse_place_id",
+  },
+  mapUrl: {
+    newMapUrl: "/user/map_urls",
+    listMapUrls: "/user/map_urls",
+  },
+  admin: {
+    mapUrl: {
+      listMapUrls: "/admin/map_urls",
+      denyMapUrl: "/admin/map_urls/:id/deny",
+      searchNearby: "/admin/map_urls/:id/nearbysearch",
+      bindStore: "/admin/map_urls/:id/create-store",
+    },
+  },
 }
 
 

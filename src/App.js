@@ -8,6 +8,7 @@ import SearchGoogleMapUrl from "./pages/SearchGoogleMapUrl"
 import StoresPage from "./pages/StoresPage"
 import NewStore from "./pages/StoresPage/new-store"
 import PrivateRoute from "./pages/PrivateRoute"
+import MapUrlsIndex from "./pages/admin/map-urls"
 import "./apis/axios"
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route path="profile" element={<ProfilePage />} />
           <Route path="new-store" element={<NewStore />} />
+          <Route path="admin/map-urls" element={<MapUrlsIndex />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />

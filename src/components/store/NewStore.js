@@ -1,6 +1,4 @@
-import { Grid, Paper } from "@material-ui/core"
 import Select from "@material-ui/core/Select"
-import classes from "./NewStore.module.css"
 import MenuItem from "@material-ui/core/MenuItem"
 import FormControl from "@material-ui/core/FormControl"
 import Container from "@material-ui/core/Container"

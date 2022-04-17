@@ -52,6 +52,13 @@ function Navbar() {
           >
             新增店家
           </Button>
+          <Button
+            sx={{ color: "white", display: "block" }}
+            component={RouterLink}
+            to="/admin/map-urls"
+          >
+            審核 MapUrl
+          </Button>
         </Box>
         {isLogin && (
           <>
@@ -76,7 +83,7 @@ function Navbar() {
               <MenuItem component={RouterLink} to="/search-google-map-url">
                 Search GoogleMap
               </MenuItem>
-              <MenuItem component={RouterLink} to="/google-map">
+              <MenuItem component={RouterLink} to="/map">
                 Show GoogleMap
               </MenuItem>
               <MenuItem onClick={handleLogout}>Logout</MenuItem>

@@ -4,7 +4,7 @@ function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
-function TextInput({name, formik, type='text'}) {
+function TextInput({name, formik, type='text', ...rest}) {
   return (
     <TextField
       id={name}
@@ -17,6 +17,7 @@ function TextInput({name, formik, type='text'}) {
       onChange={formik && formik.handleChange}
       error={formik && formik.touched[name] && Boolean(formik.errors[name])}
       helperText={formik && formik.touched[name] && formik.errors[name]}
+      {...rest}
     />
   )
 }

@@ -10,3 +10,4 @@ https://github.com/vercel/next.js/tree/main/examples/with-redux-toolkit-typescri
 custom hook
 
 * custom hook
+* useCallback
