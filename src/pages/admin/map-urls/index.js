@@ -18,6 +18,10 @@ export default function MapUrlsIndex() {
     setPaging(paging)
   }
 
+  function handleRefresh() {
+    fetchMapUrls({ state, page, per })
+  }
+
   useEffect(() => {
     fetchMapUrls({ state, page, per })
   }, [state, page, per])
@@ -31,6 +35,7 @@ export default function MapUrlsIndex() {
           setPer={setPer}
           paging={paging}
           per={per}
+          refreshList={handleRefresh}
         />
       )}
     </UserLayout>
