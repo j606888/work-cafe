@@ -10,3 +10,11 @@ export const newStore = (url) => {
 
   return authAxios.post(apiPath.stores.newStore, body)
 }
+
+export const showStore = (id) => {
+  const basePath = apiPath.stores.showStore
+  const path = basePath.replace(":id", id)
+
+  // not really need auth
+  return authAxios.get(path)
+}
