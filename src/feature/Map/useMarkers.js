@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { allStores } from "../../apis/stores"
 
-const useMarkers = (map) => {
+const useMarkers = (map, setStoreId) => {
   const [markers, setMarkers] = useState([])
 
   useEffect(() => {
@@ -14,16 +14,16 @@ const useMarkers = (map) => {
         const marker = new window.google.maps.Marker()
         marker.setOptions({
           position: {
-            lat, lng
+            lat,
+            lng,
           },
           label: name,
-          map: map
+          map: map,
         })
 
         marker.addListener("click", () => {
-          alert(`${name} is clicked`)
-          map.setZoom(18)
           map.setCenter(marker.getPosition())
+          setStoreId(id)
         })
 
         return marker

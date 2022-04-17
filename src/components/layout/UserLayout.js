@@ -1,5 +1,5 @@
 import { Container, Box } from "@mui/material"
-import Navbar from "../ui/Navbar"
+import Navbar from "../Navbar"
 
 const UserLayout = ({ children, mt=0, maxWidth="sm" }) => {
   return (
