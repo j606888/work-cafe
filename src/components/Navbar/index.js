@@ -9,7 +9,7 @@ import NavLinks from "./NavLinks"
 const NAVS = [
   ['地圖', '/map'],
   ['店家', '/stores'],
-  ['新增店家', '/new-store'],
+  ['新增店家', '/stores/new'],
   ['審核', '/admin/map-urls']
 ]
 

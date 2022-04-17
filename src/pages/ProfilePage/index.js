@@ -7,8 +7,8 @@ import {
 } from "@mui/material"
 import { blue } from "@mui/material/colors"
 import { useContext } from "react"
-import UserLayout from "../components/layout/UserLayout"
-import AuthContext from "../context/AuthContext"
+import UserLayout from "../../components/layout/UserLayout"
+import AuthContext from "../../context/AuthContext"
 
 const ProfilePage = () => {
   const { user } = useContext(AuthContext)

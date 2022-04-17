@@ -1,32 +1,32 @@
-import Button from "@mui/material/Button"
 import {
   Avatar,
   Alert,
+  Button,
   Box,
+  Grid,
   Link,
   Typography,
   Stack,
   Paper,
 } from "@mui/material"
 import { blue } from "@mui/material/colors"
-import TextInput from "../components/input/TextInput"
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import { useNavigate, Link as RouterLink } from "react-router-dom"
 import { useState, useContext } from "react"
 import { useFormik } from "formik"
-import { signup } from "../apis/auth"
-import { LoginSchema } from "../helper/schema"
-import UserLayout from "../components/layout/UserLayout"
-import AuthContext from "../context/AuthContext"
+import { login } from "../../apis/auth"
+import TextInput from "../../components/input/TextInput"
+import { LoginSchema } from "../../helper/schema"
+import AuthContext from "../../context/AuthContext"
+import UserLayout from "../../components/layout/UserLayout"
 
-const Signup = () => {
+const Login = () => {
   const navigate = useNavigate()
   const { loginUser } = useContext(AuthContext)
   const [errorCode, setErrorCode] = useState(null)
 
   const formik = useFormik({
     initialValues: {
-      name: "",
       email: "",
       password: "",
     },
@@ -35,11 +35,11 @@ const Signup = () => {
       setErrorCode(null)
 
       try {
-        const res = await signup(values)
+        const res = await login(values)
         const { access_token, refresh_token } = res.data
         loginUser({ access_token, refresh_token })
         navigate("/profile")
-      } catch(error) {
+      } catch (error) {
         setErrorCode(error.response.status)
       }
     },
@@ -54,7 +54,7 @@ const Signup = () => {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              註冊
+              登入
             </Typography>
           </Stack>
           <Box
@@ -63,26 +63,34 @@ const Signup = () => {
             noValidate
             mt={1}
           >
-            {errorCode === 409 && (
-              <Alert severity="error">Email已被使用，請嘗試其他Email</Alert>
+            {errorCode === 400 && (
+              <Alert severity="error">帳號或密碼錯誤，請重試</Alert>
             )}
             {errorCode === 500 && (
               <Alert severity="error">發生了未知錯誤</Alert>
             )}
-            <TextInput name="name" formik={formik} />
             <TextInput name="email" formik={formik} />
             <TextInput name="password" type="password" formik={formik} />
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 1, mb: 2 }}
             >
-              註冊
+              登入
             </Button>
-            <Link component={RouterLink} variant="body2" to="/login">
-              已經有帳號？登入
-            </Link>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  忘記密碼
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link component={RouterLink} variant="body2" to="/signup">
+                  {"建立帳號"}
+                </Link>
+              </Grid>
+            </Grid>
           </Box>
         </Stack>
       </Paper>
@@ -90,4 +98,4 @@ const Signup = () => {
   )
 }
 
-export default Signup
+export default Login

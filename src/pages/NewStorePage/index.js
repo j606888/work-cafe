@@ -4,7 +4,7 @@ import MapUserList from "../../feature/MapUrl/MapUrlList"
 import { useEffect, useState } from "react"
 import { listMapUrls } from "../../apis/map_url"
 
-const NewStore = () => {
+const NewStorePage = () => {
   const [mapUrls, setMapUrls] = useState([])
   const [page, setPage] = useState(1)
   const [per, setPer] = useState(10)
@@ -42,4 +42,4 @@ const NewStore = () => {
   )
 }
 
-export default NewStore
+export default NewStorePage
