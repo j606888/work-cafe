@@ -7,7 +7,7 @@ import ListItem from "@mui/material/ListItem"
 import Typography from "@mui/material/Typography"
 import ListItemIcon from "@mui/material/ListItemIcon"
 import ListItemText from "@mui/material/ListItemText"
-import { showStore } from "../../apis/stores"
+import { getStore } from "../../apis/stores"
 import LocationOnIcon from "@mui/icons-material/LocationOn"
 import PhoneIcon from "@mui/icons-material/Phone"
 import RatingStars from "../../components/ui/RatingStars"
@@ -25,7 +25,7 @@ export default function StoreDrawer({ id, setStoreId }) {
   }, [id])
 
   async function handleGetStore(id) {
-    const res = await showStore(id)
+    const res = await getStore(id)
     setStore(res.data)
   }
 

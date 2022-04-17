@@ -5,20 +5,19 @@ const apiPath = {
     refresh: "/auth/refresh",
   },
   user: {
-    me: "/user/me",
+    getInfo: "/user/me",
   },
   stores: {
-    allStores: "/stores",
-    newStore: "/google_map/parse_place_id",
-    showStore: "/stores/:id"
+    getAllStores: "/stores",
+    getStore: "/stores/:id"
   },
   mapUrl: {
-    newMapUrl: "/user/map_urls",
-    listMapUrls: "/user/map_urls",
+    createMapUrl: "/user/map_urls",
+    getAllMapUrls: "/user/map_urls",
   },
   admin: {
     mapUrl: {
-      listMapUrls: "/admin/map_urls",
+      getAllMapurls: "/admin/map_urls",
       denyMapUrl: "/admin/map_urls/:id/deny",
       searchNearby: "/admin/map_urls/:id/nearbysearch",
       bindStore: "/admin/map_urls/:id/create-store",

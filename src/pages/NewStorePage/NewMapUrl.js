@@ -1,7 +1,7 @@
 import { Alert, Box, Button, Stack } from "@mui/material"
 import TextInput from "../../components/input/TextInput"
 import { useFormik } from "formik"
-import { newMapUrl } from "../../apis/map_url"
+import { createMapUrl } from "../../apis/map_url"
 import MuiSnackbar from "../../components/ui/MuiSnackbar"
 import { useState } from "react"
 
@@ -17,7 +17,7 @@ export default function NewMapUrl({ newMapUrlCreated }) {
         url: "",
       },
       onSubmit: async (values, actions) => {
-        const res = await newMapUrl(values.url)
+        const res = await createMapUrl(values.url)
         const status = res.status
 
         if (status === 200) {
