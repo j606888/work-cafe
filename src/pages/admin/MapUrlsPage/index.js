@@ -6,14 +6,20 @@ import MapUserList from "./MapUrlLlist"
 
 export default function MapUrlsPage() {
   const [mapUrls, setMapUrls] = useState([])
-  const [page, setPage] = useState(1)
-  const [per, setPer] = useState(10)
-  const [status, setStatus] = useState('created')
   const [paging, setPaging] = useState(null)
   const [open, setOpen] = useState(false)
+  const [params, setParams] = useState({
+    page: 1,
+    per: 10,
+    status: 'created'
+  })
 
-  async function fetchMapUrls({ page, per, status }) {
-    const res = await getAllMapurls({ status, page, per })
+  useEffect(() => {
+    fetchMapUrls(params)
+  }, [params])
+
+  async function fetchMapUrls(params) {
+    const res = await getAllMapurls(params)
     const { map_urls, paging } = res.data
 
     setMapUrls(map_urls)
@@ -22,12 +28,8 @@ export default function MapUrlsPage() {
 
   function handleRefresh() {
     setOpen(true)
-    fetchMapUrls({ status, page, per })
+    fetchMapUrls(params)
   }
-
-  useEffect(() => {
-    fetchMapUrls({ status, page, per })
-  }, [status, page, per])
 
   return (
     <UserLayout maxWidth="none" mt={3}>
@@ -35,13 +37,10 @@ export default function MapUrlsPage() {
       {paging && (
         <MapUserList
           mapUrls={mapUrls}
-          setPage={setPage}
-          setPer={setPer}
           paging={paging}
-          per={per}
-          status={status}
-          setStatus={setStatus}
           refreshList={handleRefresh}
+          setParams={setParams}
+          params={params}
         />
       )}
     </UserLayout>

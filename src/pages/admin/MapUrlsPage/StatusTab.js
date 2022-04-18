@@ -5,12 +5,12 @@ import Box from "@mui/material/Box"
 
 const STATES_LIST = ["created", "accept", "deny"]
 
-export default function StatusTab({ setStatus }) {
+export default function StatusTab({ setParams }) {
   const [value, setValue] = React.useState(0)
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
-    setStatus(STATES_LIST[newValue])
+    setParams((preState) => ({ ...preState, status: STATES_LIST[newValue] }))
   }
 
   return (

@@ -1,4 +1,4 @@
-import * as React from "react"
+import { useState } from "react"
 import Paper from "@mui/material/Paper"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
@@ -11,7 +11,7 @@ import TableRow from "@mui/material/TableRow"
 import dayjs from "dayjs"
 import { denyMapUrl } from "../../../apis/admin/map_url"
 import { Button, ButtonGroup, Chip } from "@mui/material"
-import MapUrlModal from './MapUrlModal'
+import MapUrlModal from "./MapUrlModal"
 import StatusTab from "./StatusTab"
 
 const columns = [
@@ -54,28 +54,23 @@ const CHIP_COLOR_MAP = {
 export default function MapUrlList({
   mapUrls,
   paging,
-  setPage,
-  setPer,
-  per,
   refreshList,
-  setStatus,
-  status,
+  setParams,
+  params,
 }) {
-  const [openModal, setOpenModal] = React.useState(false)
-  const [modalMapUrlId, setModalMapUrlId] = React.useState(null)
+  const [openModal, setOpenModal] = useState(false)
+  const [modalMapUrlId, setModalMapUrlId] = useState(null)
 
   const handleChangePage = (event, newPage) => {
-    setPage(newPage + 1)
+    setParams({ ...params, page: newPage + 1 })
   }
 
   const handleChangeRowsPerPage = (event) => {
-    setPer(+event.target.value)
-    setPage(1)
+    setParams({ ...params, per: +event.target.value, page: 1 })
   }
 
   async function handleDeny(id) {
-    const res = await denyMapUrl(id)
-    console.log(res.status)
+    await denyMapUrl(id)
   }
 
   function handleSearch(id) {
@@ -93,7 +88,7 @@ export default function MapUrlList({
       />
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
         <TableContainer sx={{ maxHeight: 640 }}>
-          <StatusTab setStatus={setStatus} />
+          <StatusTab setParams={setParams} />
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
@@ -128,7 +123,7 @@ export default function MapUrlList({
                       </Link>
                     </TableCell>
                     <TableCell align="right">
-                      {status === "created" && (
+                      {params.status === "created" && (
                         <ButtonGroup variant="contained" size="small">
                           <Button
                             color="success"
@@ -155,7 +150,7 @@ export default function MapUrlList({
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
           count={paging.total_count}
-          rowsPerPage={per}
+          rowsPerPage={params.per}
           page={paging.current_page - 1}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
