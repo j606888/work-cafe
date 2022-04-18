@@ -1,16 +1,13 @@
 import authAxios from "../axios/authAxios";
 import apiPath from "../../config/apiPath";
 
-export const getAllMapurls = ({state, page, per}) => {
+export const getAllMapurls = ({status, page, per}) => {
   const params = {
-    // state,
+    status,
     page,
     per
   }
 
-  // if (state !== null || state !== "") {
-  //   params.state = state
-  // }
   return authAxios.get(apiPath.admin.mapUrl.getAllMapurls, { params })
 }
 

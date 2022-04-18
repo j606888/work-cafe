@@ -12,6 +12,7 @@ import dayjs from "dayjs"
 import { denyMapUrl } from "../../../apis/admin/map_url"
 import { Button, ButtonGroup, Chip } from "@mui/material"
 import MapUrlModal from './MapUrlModal'
+import StatusTab from "./StatusTab"
 
 const columns = [
   { id: "name", label: "店名", minWidth: 120 },
@@ -50,7 +51,16 @@ const CHIP_COLOR_MAP = {
   accept: "success",
   deny: "error",
 }
-export default function MapUrlList({ mapUrls, paging, setPage, setPer, per, refreshList }) {
+export default function MapUrlList({
+  mapUrls,
+  paging,
+  setPage,
+  setPer,
+  per,
+  refreshList,
+  setStatus,
+  status,
+}) {
   const [openModal, setOpenModal] = React.useState(false)
   const [modalMapUrlId, setModalMapUrlId] = React.useState(null)
 
@@ -69,7 +79,6 @@ export default function MapUrlList({ mapUrls, paging, setPage, setPer, per, refr
   }
 
   function handleSearch(id) {
-    console.log(`ID: ${id} will be search`)
     setModalMapUrlId(id)
     setOpenModal(true)
   }
@@ -84,6 +93,7 @@ export default function MapUrlList({ mapUrls, paging, setPage, setPer, per, refr
       />
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
         <TableContainer sx={{ maxHeight: 640 }}>
+          <StatusTab setStatus={setStatus} />
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
@@ -118,20 +128,22 @@ export default function MapUrlList({ mapUrls, paging, setPage, setPer, per, refr
                       </Link>
                     </TableCell>
                     <TableCell align="right">
-                      <ButtonGroup variant="contained" size="small">
-                        <Button
-                          color="success"
-                          onClick={() => handleSearch(mapUrl.id)}
-                        >
-                          搜尋
-                        </Button>
-                        <Button
-                          color="error"
-                          onClick={() => handleDeny(mapUrl.id)}
-                        >
-                          駁回
-                        </Button>
-                      </ButtonGroup>
+                      {status === "created" && (
+                        <ButtonGroup variant="contained" size="small">
+                          <Button
+                            color="success"
+                            onClick={() => handleSearch(mapUrl.id)}
+                          >
+                            搜尋
+                          </Button>
+                          <Button
+                            color="error"
+                            onClick={() => handleDeny(mapUrl.id)}
+                          >
+                            駁回
+                          </Button>
+                        </ButtonGroup>
+                      )}
                     </TableCell>
                   </TableRow>
                 )

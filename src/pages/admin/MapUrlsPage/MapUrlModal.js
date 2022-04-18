@@ -7,6 +7,7 @@ import { bindStore, searchNearby } from "../../../apis/admin/map_url"
 import LocationOnIcon from "@mui/icons-material/LocationOn"
 import SpeakerNotesIcon from "@mui/icons-material/SpeakerNotes"
 import StarIcon from "@mui/icons-material/Star"
+import { Alert } from "@mui/material"
 
 const style = {
   position: "absolute",
@@ -23,10 +24,19 @@ const style = {
 
 export default function MapUrlModal({ open, setOpen, id, refreshList }) {
   const [places, setPlaces] = React.useState([])
+  const [errorMessage, setErrorMessage] = React.useState(null)
 
   async function getNearby(id) {
-    const res = await searchNearby(id)
-    setPlaces(res.data)
+    setErrorMessage(null)
+    try {
+      const res = await searchNearby(id)
+      setPlaces(res.data)
+    } catch (error) {
+      const res = error.response
+      if (res.status === 409) {
+        setErrorMessage(res.data.reason)
+      }
+    }
   }
 
   async function handleBind(placeId) {
@@ -39,6 +49,7 @@ export default function MapUrlModal({ open, setOpen, id, refreshList }) {
 
   React.useEffect(() => {
     if (id) {
+      setPlaces([])
       getNearby(id)
     }
   }, [id])
@@ -55,6 +66,7 @@ export default function MapUrlModal({ open, setOpen, id, refreshList }) {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             搜尋結果({places.length})
           </Typography>
+          {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
           {places.map(place => {
             return (
               <div key={place.place_id}>
@@ -80,10 +92,6 @@ export default function MapUrlModal({ open, setOpen, id, refreshList }) {
               </div>
             )
           })}
-
-          {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography> */}
         </Box>
       </Modal>
     </div>

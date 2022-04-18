@@ -7,11 +7,11 @@ export default function MapUrlsPage() {
   const [mapUrls, setMapUrls] = useState([])
   const [page, setPage] = useState(1)
   const [per, setPer] = useState(10)
-  const [state, setState] = useState("created")
+  const [status, setStatus] = useState('created')
   const [paging, setPaging] = useState(null)
 
-  async function fetchMapUrls({ page, per, state }) {
-    const res = await getAllMapurls({ state, page, per })
+  async function fetchMapUrls({ page, per, status }) {
+    const res = await getAllMapurls({ status, page, per })
     const { map_urls, paging } = res.data
 
     setMapUrls(map_urls)
@@ -19,12 +19,12 @@ export default function MapUrlsPage() {
   }
 
   function handleRefresh() {
-    fetchMapUrls({ state, page, per })
+    fetchMapUrls({ status, page, per })
   }
 
   useEffect(() => {
-    fetchMapUrls({ state, page, per })
-  }, [state, page, per])
+    fetchMapUrls({ status, page, per })
+  }, [status, page, per])
 
   return (
     <UserLayout maxWidth="none" mt={3}>
@@ -35,6 +35,8 @@ export default function MapUrlsPage() {
           setPer={setPer}
           paging={paging}
           per={per}
+          status={status}
+          setStatus={setStatus}
           refreshList={handleRefresh}
         />
       )}
