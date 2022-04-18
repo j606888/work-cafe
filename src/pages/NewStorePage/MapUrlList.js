@@ -10,6 +10,7 @@ import TablePagination from "@mui/material/TablePagination"
 import TableRow from "@mui/material/TableRow"
 import dayjs from "dayjs"
 import { Chip } from "@mui/material"
+import ListTab from "./ListTab"
 
 const columns = [
   { id: "name", label: "店名", minWidth: 120 },
@@ -41,7 +42,7 @@ const CHIP_COLOR_MAP = {
   accept: "success",
   deny: "error",
 }
-export default function MapUserList({ mapUrls, paging, setPage, setPer, per }) {
+export default function MapUserList({ mapUrls, paging, setPage, setPer, per, setStatus }) {
   const handleChangePage = (event, newPage) => {
     setPage(newPage + 1)
   }
@@ -54,6 +55,7 @@ export default function MapUserList({ mapUrls, paging, setPage, setPer, per }) {
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <TableContainer sx={{ maxHeight: 640 }}>
+        <ListTab setStatus={setStatus} />
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -74,7 +76,10 @@ export default function MapUserList({ mapUrls, paging, setPage, setPer, per }) {
                 <TableRow hover role="checkbox" tabIndex={-1} key={mapUrl.id}>
                   <TableCell align="left">{mapUrl.keyword}</TableCell>
                   <TableCell align="left">
-                    <Chip label={mapUrl.status} color={CHIP_COLOR_MAP[mapUrl.status]} />
+                    <Chip
+                      label={mapUrl.status}
+                      color={CHIP_COLOR_MAP[mapUrl.status]}
+                    />
                   </TableCell>
                   <TableCell align="right">
                     {dayjs(mapUrl.created_at).format("YYYY/MM/DD")}

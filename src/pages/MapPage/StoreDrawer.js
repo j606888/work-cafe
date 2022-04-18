@@ -104,7 +104,7 @@ export default function StoreDrawer({ id, setStoreId }) {
   )
 
   return (
-    <Drawer anchor={"left"} open={state} onClose={toggleDrawer(false)}>
+    <Drawer  anchor={"left"} open={state} onClose={toggleDrawer(false)}>
       {list()}
     </Drawer>
   )

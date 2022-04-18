@@ -7,10 +7,11 @@ export const createMapUrl = (url) => {
   return authAxios.post(apiPath.mapUrl.createMapUrl, body)
 }
 
-export const getAllMapUrls = (page, per) => {
+export const getAllMapUrls = ({ page, per, status }) => {
   const params = {
     page,
     per,
+    status,
   }
   return authAxios.get(apiPath.mapUrl.getAllMapUrls, { params })
 }
