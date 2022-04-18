@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { getAllMapurls } from "../../../apis/admin/map_url"
 import MapUserList from "./MapUrlLlist"
 
-export default function MapUrlsIndex() {
+export default function MapUrlsPage() {
   const [mapUrls, setMapUrls] = useState([])
   const [page, setPage] = useState(1)
   const [per, setPer] = useState(10)
