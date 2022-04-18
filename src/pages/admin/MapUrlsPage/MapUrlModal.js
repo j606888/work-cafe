@@ -1,4 +1,4 @@
-import * as React from "react"
+import { useState, useEffect } from "react"
 import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
@@ -8,6 +8,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn"
 import SpeakerNotesIcon from "@mui/icons-material/SpeakerNotes"
 import StarIcon from "@mui/icons-material/Star"
 import { Alert } from "@mui/material"
+import LoadingCircle from "../../../components/ui/LoadingCircle"
 
 const style = {
   position: "absolute",
@@ -23,10 +24,12 @@ const style = {
 }
 
 export default function MapUrlModal({ open, setOpen, id, refreshList }) {
-  const [places, setPlaces] = React.useState([])
-  const [errorMessage, setErrorMessage] = React.useState(null)
+  const [places, setPlaces] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   async function getNearby(id) {
+    setIsLoading(true)
     setErrorMessage(null)
     try {
       const res = await searchNearby(id)
@@ -37,6 +40,7 @@ export default function MapUrlModal({ open, setOpen, id, refreshList }) {
         setErrorMessage(res.data.reason)
       }
     }
+    setIsLoading(false)
   }
 
   async function handleBind(placeId) {
@@ -47,7 +51,7 @@ export default function MapUrlModal({ open, setOpen, id, refreshList }) {
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (id) {
       setPlaces([])
       getNearby(id)
@@ -62,37 +66,43 @@ export default function MapUrlModal({ open, setOpen, id, refreshList }) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            搜尋結果({places.length})
-          </Typography>
-          {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
-          {places.map(place => {
-            return (
-              <div key={place.place_id}>
-                <h3>{place.name}</h3>
-                <p>
-                  <LocationOnIcon />
-                  {place.vicinity}
-                </p>
-                <p>
-                  <SpeakerNotesIcon />
-                  {place.user_ratings_total} 筆評論
-                </p>
-                <p>
-                  <StarIcon />
-                  {place.rating} 星
-                </p>
-                <Button
-                  variant="contained"
-                  onClick={() => handleBind(place.place_id)}
-                >
-                  綁定這筆
-                </Button>
-              </div>
-            )
-          })}
-        </Box>
+        {isLoading ? (
+          <Box sx={style}>
+            <LoadingCircle />
+          </Box>
+        ) : (
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              搜尋結果({places.length})
+            </Typography>
+            {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+            {places.map((place) => {
+              return (
+                <div key={place.place_id}>
+                  <h3>{place.name}</h3>
+                  <p>
+                    <LocationOnIcon />
+                    {place.vicinity}
+                  </p>
+                  <p>
+                    <SpeakerNotesIcon />
+                    {place.user_ratings_total} 筆評論
+                  </p>
+                  <p>
+                    <StarIcon />
+                    {place.rating} 星
+                  </p>
+                  <Button
+                    variant="contained"
+                    onClick={() => handleBind(place.place_id)}
+                  >
+                    綁定這筆
+                  </Button>
+                </div>
+              )
+            })}
+          </Box>
+        )}
       </Modal>
     </div>
   )

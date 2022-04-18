@@ -1,6 +1,7 @@
 import UserLayout from "../../../components/layout/UserLayout"
 import { useEffect, useState } from "react"
 import { getAllMapurls } from "../../../apis/admin/map_url"
+import Notification from "../../../components/ui/Notification"
 import MapUserList from "./MapUrlLlist"
 
 export default function MapUrlsPage() {
@@ -9,6 +10,7 @@ export default function MapUrlsPage() {
   const [per, setPer] = useState(10)
   const [status, setStatus] = useState('created')
   const [paging, setPaging] = useState(null)
+  const [open, setOpen] = useState(false)
 
   async function fetchMapUrls({ page, per, status }) {
     const res = await getAllMapurls({ status, page, per })
@@ -19,6 +21,7 @@ export default function MapUrlsPage() {
   }
 
   function handleRefresh() {
+    setOpen(true)
     fetchMapUrls({ status, page, per })
   }
 
@@ -28,6 +31,7 @@ export default function MapUrlsPage() {
 
   return (
     <UserLayout maxWidth="none" mt={3}>
+      <Notification message="綁定成功" open={open} setOpen={setOpen} />
       {paging && (
         <MapUserList
           mapUrls={mapUrls}
