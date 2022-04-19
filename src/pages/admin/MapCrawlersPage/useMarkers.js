@@ -26,13 +26,13 @@ const useMarkers = (map, setMapCrawlerId) => {
         })
 
         marker.addListener("click", () => {
-          map.setCenter(marker.getPosition())
+          // map.setCenter(marker.getPosition())
           setMapCrawlerId(id)
           // This is how to remove a marker
           // marker.setMap(null)
         })
 
-        return marker
+        return { id, marker }
       })
       setMarkers(mapCralwersMakers)
     }

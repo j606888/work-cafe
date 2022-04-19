@@ -13,7 +13,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn"
 import RatingStars from "../../../components/ui/RatingStars"
 import ClockIcon from "@mui/icons-material/AccessTime"
 
-export default function StoreDrawer({ id, setMapCrawlerId }) {
+export default function StoreDrawer({ id, setMapCrawlerId, removeMarker }) {
   const [mapCrawler, setMapCrawler] = React.useState(null)
   const [state, setState] = React.useState(false)
 
@@ -31,10 +31,12 @@ export default function StoreDrawer({ id, setMapCrawlerId }) {
 
   function handleBind() {
     bindMapCrawler(id)
+    removeMarker(id)
   }
 
   function handleDeny() {
     denyMapCrawler(id)
+    removeMarker(id)
   }
 
   const toggleDrawer = (open) => (event) => {
@@ -93,9 +95,13 @@ export default function StoreDrawer({ id, setMapCrawlerId }) {
               <ListItemText primary="營業時間" />
             </ListItem>
           </List>
-          <Stack spacing={2} sx={{ width: '25%', margin: '0 auto' }}>
-            <Button variant="contained" onClick={handleBind}>收藏</Button>
-            <Button variant="contained" onClick={handleDeny} color="error">駁回</Button>
+          <Stack spacing={2} sx={{ width: "25%", margin: "0 auto" }}>
+            <Button variant="contained" onClick={handleBind}>
+              收藏
+            </Button>
+            <Button variant="contained" onClick={handleDeny} color="error">
+              駁回
+            </Button>
           </Stack>
         </>
       )}

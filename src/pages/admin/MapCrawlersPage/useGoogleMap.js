@@ -10,7 +10,7 @@ export default function useGoogleMap(ref) {
           lat: 22.9918511,
           lng: 120.2066457,
         },
-        zoom: 14,
+        zoom: 16,
         fullscreenControl: false,
       }))
     }
