@@ -5,6 +5,7 @@ import ProfilePage from "./ProfilePage";
 import MapPage from "./MapPage";
 import NewStorePage from "./NewStorePage";
 import AdminMapUrls from "./admin/MapUrlsPage"
+import AdminMapCrawlers from './admin/MapCrawlersPage'
 
 export {
   HomePage,
@@ -14,4 +15,5 @@ export {
   MapPage,
   NewStorePage,
   AdminMapUrls,
+  AdminMapCrawlers,
 }

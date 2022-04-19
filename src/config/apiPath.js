@@ -22,6 +22,9 @@ const apiPath = {
       searchNearby: "/admin/map_urls/:id/nearbysearch",
       bindStore: "/admin/map_urls/:id/create-store",
     },
+    mapCralwers: {
+      getAllMapCrawlers: "/admin/map_crawlers"
+    } 
   },
 }
 
