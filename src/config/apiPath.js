@@ -9,7 +9,7 @@ const apiPath = {
   },
   stores: {
     getAllStores: "/stores",
-    getStore: "/stores/:id"
+    getStore: "/stores/:id",
   },
   mapUrl: {
     createMapUrl: "/user/map_urls",
@@ -21,6 +21,12 @@ const apiPath = {
       denyMapUrl: "/admin/map_urls/:id/deny",
       searchNearby: "/admin/map_urls/:id/nearbysearch",
       bindStore: "/admin/map_urls/:id/create-store",
+    },
+    mapCralwers: {
+      getMapCrawler: "/admin/map_crawlers/:id",
+      getAllMapCrawlers: "/admin/map_crawlers",
+      bindMapCrawler: "/admin/map_crawlers/:id/bind",
+      denyMapCrawler: "/admin/map_crawlers/:id/deny",
     },
   },
 }

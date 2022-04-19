@@ -11,6 +11,7 @@ import {
   MapPage,
   NewStorePage,
   AdminMapUrls,
+  AdminMapCrawlers,
 } from "./pages"
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="profile" element={<ProfilePage />} />
           <Route path="stores/new" element={<NewStorePage />} />
           <Route path="admin/map-urls" element={<AdminMapUrls />} />
+          <Route path="admin/map-crawlers" element={<AdminMapCrawlers />} />
         </Route>
       </Routes>
     </AuthProvider>

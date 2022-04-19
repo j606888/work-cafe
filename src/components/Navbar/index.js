@@ -10,7 +10,8 @@ const NAVS = [
   ['地圖', '/map'],
   ['店家', '/stores'],
   ['新增店家', '/stores/new'],
-  ['審核', '/admin/map-urls']
+  ['審核', '/admin/map-urls'],
+  ['爬蟲', '/admin/map-crawlers']
 ]
 
 const Navbar = () => {
