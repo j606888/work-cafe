@@ -31,3 +31,10 @@ export const denyMapCrawler = (id) => {
 
   return authAxios.post(path)
 }
+
+export const search = (location) => {
+  const path = apiPath.admin.mapCralwers.search
+  const body = { location }
+
+  return authAxios.post(path, body)
+}
