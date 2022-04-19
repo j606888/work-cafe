@@ -1,48 +1,35 @@
 import { useEffect, useState } from "react"
-import { getAllMapCrawlers } from "../../../apis/admin/map_crawlers"
 
-const useMarkers = (map, setMapCrawlerId) => {
+const useMarkers = (map, mapCrawlers, setMapCrawlerId) => {
   const [markers, setMarkers] = useState([])
 
-  async function getStores() {
-    const res = await getAllMapCrawlers({
-      page: 1,
-      per: 50,
-      status: "created",
-    })
-    const { map_crawlers, paging } = res.data
-
-    const mapCralwersMakers = map_crawlers.map((map_crawler) => {
-      const { id, name, lat, lng } = map_crawler
-      const marker = new window.google.maps.Marker()
-      marker.setOptions({
-        position: {
-          lat,
-          lng,
-        },
-        label: name,
-        map: map,
-      })
-
-      marker.addListener("click", () => {
-        // map.setCenter(marker.getPosition())
-        setMapCrawlerId(id)
-        // This is how to remove a marker
-        // marker.setMap(null)
-      })
-
-      return { id, marker }
-    })
-    setMarkers(mapCralwersMakers)
-  }
-
   useEffect(() => {
-    if (map) {
-      getStores()
-    }
-  }, [map])
+    if (map && mapCrawlers.length > 0) {
+      const mapCralwersMakers = mapCrawlers.map((mapCrawler) => {
+        const { id, name, lat, lng } = mapCrawler
+        const marker = new window.google.maps.Marker()
+        marker.setOptions({
+          position: {
+            lat,
+            lng,
+          },
+          label: name,
+          map: map,
+        })
 
-  return [markers, getStores]
+        marker.addListener("click", () => {
+          setMapCrawlerId(id)
+        })
+
+        return { id, marker }
+      })
+
+      setMarkers(mapCralwersMakers)
+    }
+  }, [map, mapCrawlers, setMapCrawlerId])
+
+
+  return markers
 }
 
 export default useMarkers
