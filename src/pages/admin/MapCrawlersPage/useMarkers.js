@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react"
 import { getAllMapCrawlers } from "../../../apis/admin/map_crawlers"
 
-const useMarkers = (map) => {
+const useMarkers = (map, setMapCrawlerId) => {
   const [markers, setMarkers] = useState([])
 
   useEffect(() => {
     const getStores = async () => {
       const res = await getAllMapCrawlers({
         page: 1,
-        per: 500,
-        status: 'created'
+        per: 50,
+        status: "created",
       })
       const { map_crawlers, paging } = res.data
 
@@ -27,6 +27,7 @@ const useMarkers = (map) => {
 
         marker.addListener("click", () => {
           map.setCenter(marker.getPosition())
+          setMapCrawlerId(id)
           // This is how to remove a marker
           // marker.setMap(null)
         })

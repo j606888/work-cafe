@@ -4,17 +4,17 @@ import Drawer from "@mui/material/Drawer"
 import List from "@mui/material/List"
 import Stack from "@mui/material/Stack"
 import ListItem from "@mui/material/ListItem"
+import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import ListItemIcon from "@mui/material/ListItemIcon"
 import ListItemText from "@mui/material/ListItemText"
-import { getStore } from "../../../apis/stores"
+import { getMapCralwer, bindMapCrawler, denyMapCrawler } from "../../../apis/admin/map_crawlers"
 import LocationOnIcon from "@mui/icons-material/LocationOn"
-import PhoneIcon from "@mui/icons-material/Phone"
 import RatingStars from "../../../components/ui/RatingStars"
 import ClockIcon from "@mui/icons-material/AccessTime"
 
-export default function StoreDrawer({ id, setStoreId }) {
-  const [store, setStore] = React.useState(null)
+export default function StoreDrawer({ id, setMapCrawlerId }) {
+  const [mapCrawler, setMapCrawler] = React.useState(null)
   const [state, setState] = React.useState(false)
 
   React.useEffect(() => {
@@ -25,8 +25,16 @@ export default function StoreDrawer({ id, setStoreId }) {
   }, [id])
 
   async function handleGetStore(id) {
-    const res = await getStore(id)
-    setStore(res.data)
+    const res = await getMapCralwer(id)
+    setMapCrawler(res.data)
+  }
+
+  function handleBind() {
+    bindMapCrawler(id)
+  }
+
+  function handleDeny() {
+    denyMapCrawler(id)
   }
 
   const toggleDrawer = (open) => (event) => {
@@ -38,8 +46,8 @@ export default function StoreDrawer({ id, setStoreId }) {
     }
 
     if (!open) {
-      setStore(null)
-      setStoreId(null)
+      setMapCrawler(null)
+      setMapCrawlerId(null)
     }
 
     setState(open)
@@ -52,7 +60,7 @@ export default function StoreDrawer({ id, setStoreId }) {
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
-      {store && (
+      {mapCrawler && (
         <>
           <Typography
             id="modal-modal-title"
@@ -60,27 +68,23 @@ export default function StoreDrawer({ id, setStoreId }) {
             component="h2"
             sx={{ ml: 2, mt: 2, mb: 1 }}
           >
-            {store.name}
+            {mapCrawler.name}
           </Typography>
           <Stack direction="row" ml={2} spacing={1}>
-            <Typography variant="body2">{store.rating} </Typography>
-            <RatingStars rating={store.rating} />
             <Typography variant="body2">
-              {store.user_ratings_total} 則評論
+              {mapCrawler.source_data.rating}{" "}
+            </Typography>
+            <RatingStars rating={mapCrawler.source_data.rating} />
+            <Typography variant="body2">
+              {mapCrawler.source_data.user_ratings_total} 則評論
             </Typography>
           </Stack>
           <List>
-            <ListItem button component="a" target="_blank" href={store.url}>
+            <ListItem button>
               <ListItemIcon>
                 <LocationOnIcon />
               </ListItemIcon>
-              <ListItemText primary={store.address} />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon>
-                <PhoneIcon />
-              </ListItemIcon>
-              <ListItemText primary={store.phone} />
+              <ListItemText primary={mapCrawler.source_data.vicinity} />
             </ListItem>
             <ListItem button>
               <ListItemIcon>
@@ -88,23 +92,18 @@ export default function StoreDrawer({ id, setStoreId }) {
               </ListItemIcon>
               <ListItemText primary="營業時間" />
             </ListItem>
-            <Stack ml={12}>
-              {store.source_data.opening_hours.map((hour) => {
-                return (
-                  <Typography key={hour} variant="subtitle1" mb={1}>
-                    {hour}
-                  </Typography>
-                )
-              })}
-            </Stack>
           </List>
+          <Stack spacing={2} sx={{ width: '25%', margin: '0 auto' }}>
+            <Button variant="contained" onClick={handleBind}>收藏</Button>
+            <Button variant="contained" onClick={handleDeny} color="error">駁回</Button>
+          </Stack>
         </>
       )}
     </Box>
   )
 
   return (
-    <Drawer  anchor={"left"} open={state} onClose={toggleDrawer(false)}>
+    <Drawer anchor={"left"} open={state} onClose={toggleDrawer(false)}>
       {list()}
     </Drawer>
   )
