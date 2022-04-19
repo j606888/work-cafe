@@ -24,6 +24,8 @@ const useMarkers = (map, setStoreId) => {
         marker.addListener("click", () => {
           map.setCenter(marker.getPosition())
           setStoreId(id)
+          // This is how to remove a marker
+          // marker.setMap(null)
         })
 
         return marker
