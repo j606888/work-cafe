@@ -6,7 +6,7 @@ const useMarkers = (map, setStoreId) => {
 
   useEffect(() => {
     const getStores = async () => {
-      const res = await getAllStores()
+      const res = await getAllStores({ page: 1, per: 200 })
       const { stores, paging } = res.data
 
       const storeMarkers = stores.map((store) => {

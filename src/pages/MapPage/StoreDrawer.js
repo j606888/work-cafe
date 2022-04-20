@@ -49,7 +49,7 @@ export default function StoreDrawer({ id, setStoreId }) {
     <Box
       sx={{ width: 400 }}
       role="presentation"
-      onClick={toggleDrawer(false)}
+      // onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
       {store && (

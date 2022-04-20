@@ -16,7 +16,7 @@ function MapComponent() {
    async function getMapCrawlers() {
      const res = await getAllMapCrawlers({
        page: 1,
-       per: 50,
+       per: 200,
        status: "created",
      })
      const { map_crawlers, paging } = res.data
