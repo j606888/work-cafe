@@ -1,9 +1,9 @@
 import axios from "axios"
 import jwt_decode from "jwt-decode"
 import dayjs from "dayjs"
-import { API_HOST } from "../../config"
-import { refreshAccessToken } from "../auth" 
+import { refreshAccessToken } from "../auth"
 
+const API_HOST = process.env.REACT_APP_API_HOST
 const authAxios = axios.create({
   baseURL: API_HOST,
 })
