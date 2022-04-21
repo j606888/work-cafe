@@ -1,4 +1,4 @@
-import UserLayout from "../../../components/layout/UserLayout"
+import AdminLayout from "../../../components/layout/AdminLayout"
 import { useEffect, useState } from "react"
 import { getAllMapurls } from "../../../apis/admin/map_url"
 import Notification from "../../../components/ui/Notification"
@@ -32,7 +32,7 @@ export default function MapUrlsPage() {
   }
 
   return (
-    <UserLayout maxWidth="none" mt={3}>
+    <AdminLayout maxWidth="none" mt={3}>
       <Notification message="綁定成功" open={open} setOpen={setOpen} />
       {paging && (
         <MapUserList
@@ -43,6 +43,6 @@ export default function MapUrlsPage() {
           params={params}
         />
       )}
-    </UserLayout>
+    </AdminLayout>
   )
 }

@@ -3,7 +3,7 @@ import { AccountCircle } from "@mui/icons-material"
 import { useState, useContext } from "react"
 import { Menu, MenuItem } from "@mui/material"
 import { Link as RouterLink } from "react-router-dom"
-import AuthContext from "../../context/AuthContext"
+import AuthContext from "../../../context/AuthContext"
 
 const LoginMenu = () => {
   const { logoutUser } = useContext(AuthContext)
@@ -29,8 +29,8 @@ const LoginMenu = () => {
         <MenuItem component={RouterLink} to="/profile">
           設定
         </MenuItem>
-        <MenuItem component={RouterLink} to="/admin/map-urls">
-          管理者模式
+        <MenuItem component={RouterLink} to="/stores">
+          一般用戶
         </MenuItem>
         <MenuItem onClick={() => logoutUser()}>登出</MenuItem>
       </Menu>

@@ -1,4 +1,4 @@
-import UserLayout from "../../../components/layout/UserLayout";
+import AdminLayout from "../../../components/layout/AdminLayout";
 import { Stack } from "@mui/material"
 import { Wrapper } from "@googlemaps/react-wrapper"
 import MapComponent from "./MapComponent"
@@ -10,12 +10,12 @@ const style = {
 
 export default function MapCrawlersPage() {
   return (
-    <UserLayout mt={3}>
+    <AdminLayout mt={3}>
       <Stack sx={style.stack}>
         <Wrapper apiKey={API_KEY}>
           <MapComponent />
         </Wrapper>
       </Stack>
-    </UserLayout>
+    </AdminLayout>
   )
 }
