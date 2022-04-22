@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react"
 import { LocalCafe } from "@mui/icons-material"
 import { AppBar, Toolbar, Typography, Button } from "@mui/material"
 import LoginMenu from "./LoginMenu"
 import { Link as RouterLink } from "react-router-dom"
 import NavLinks from "./NavLinks"
-
+import { useContext } from "react"
+import AuthContext from "../../context/AuthContext"
 
 const NAVS = [
   ['地圖', '/map'],
@@ -13,14 +13,7 @@ const NAVS = [
 ]
 
 const Navbar = () => {
-  const [isLogin, setIsLogin] = useState(false)
-
-  useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken")
-    if (accessToken) {
-      setIsLogin(true)
-    }
-  }, [])
+  const { isLogin, user } = useContext(AuthContext)
 
   return (
     <AppBar>
@@ -30,7 +23,7 @@ const Navbar = () => {
           Work Cafe
         </Typography>
         <NavLinks navs={NAVS} />
-        {isLogin && <LoginMenu />}
+        {isLogin && <LoginMenu user={user} />}
         {!isLogin && (
           <Button color="inherit" component={RouterLink} to="/login">
             LOGIN

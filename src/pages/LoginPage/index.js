@@ -37,7 +37,7 @@ const Login = () => {
       try {
         const res = await login(values)
         const { access_token, refresh_token } = res.data
-        loginUser({ access_token, refresh_token })
+        await loginUser({ access_token, refresh_token })
         navigate("/profile")
       } catch (error) {
         setErrorCode(error.response.status)

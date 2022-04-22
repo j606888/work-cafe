@@ -6,11 +6,8 @@ import "@fontsource/roboto/500.css"
 import "@fontsource/roboto/700.css"
 import App from './App';
 import './index.css'
-import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+    <App />,
   document.getElementById('root')
 );

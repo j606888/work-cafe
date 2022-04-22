@@ -5,9 +5,10 @@ import { Menu, MenuItem } from "@mui/material"
 import { Link as RouterLink } from "react-router-dom"
 import AuthContext from "../../context/AuthContext"
 
-const LoginMenu = () => {
+const LoginMenu = ({ user }) => {
   const { logoutUser } = useContext(AuthContext)
   const [anchorEl, setAnchorEl] = useState(null)
+  const isAdmin = user.role && user.role === 'admin'
 
   return (
     <>
@@ -29,9 +30,12 @@ const LoginMenu = () => {
         <MenuItem component={RouterLink} to="/profile">
           設定
         </MenuItem>
-        <MenuItem component={RouterLink} to="/admin/map-urls">
-          管理者模式
-        </MenuItem>
+        {isAdmin && (
+          <MenuItem component={RouterLink} to="/admin/map-urls">
+            管理者模式
+          </MenuItem>
+        )}
+
         <MenuItem onClick={() => logoutUser()}>登出</MenuItem>
       </Menu>
     </>

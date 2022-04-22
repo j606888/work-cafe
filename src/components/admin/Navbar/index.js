@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react"
 import { LocalCafe } from "@mui/icons-material"
 import { AppBar, Toolbar, Typography, Button } from "@mui/material"
 import LoginMenu from "./LoginMenu"
@@ -6,6 +5,8 @@ import { Link as RouterLink } from "react-router-dom"
 import NavLinks from "./NavLinks"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import { purple } from "@mui/material/colors"
+import { useContext } from "react"
+import AuthContext from "../../../context/AuthContext"
 
 const NAVS = [
   ["審核", "/admin/map-urls"],
@@ -24,14 +25,7 @@ const theme = createTheme({
 })
 
 const Navbar = () => {
-  const [isLogin, setIsLogin] = useState(false)
-
-  useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken")
-    if (accessToken) {
-      setIsLogin(true)
-    }
-  }, [])
+  const { isLogin } = useContext(AuthContext)
 
   return (
     <ThemeProvider theme={theme}>
