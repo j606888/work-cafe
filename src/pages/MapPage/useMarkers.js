@@ -1,14 +1,10 @@
 import { useEffect, useState } from "react"
-import { getAllStores } from "../../apis/stores"
 
-const useMarkers = (map, setStoreId) => {
+const useMarkers = (map, stores, setStoreId) => {
   const [markers, setMarkers] = useState([])
 
   useEffect(() => {
-    const getStores = async () => {
-      const res = await getAllStores({ page: 1, per: 200 })
-      const { stores, paging } = res.data
-
+    if (map && stores.length > 0) {
       const storeMarkers = stores.map((store) => {
         const { id, name, lat, lng } = store
         const marker = new window.google.maps.Marker()
@@ -22,21 +18,17 @@ const useMarkers = (map, setStoreId) => {
         })
 
         marker.addListener("click", () => {
-          map.setCenter(marker.getPosition())
+          // map.setCenter(marker.getPosition())
           setStoreId(id)
           // This is how to remove a marker
           // marker.setMap(null)
         })
-
-        return marker
+        return { id, marker}
       })
+      
       setMarkers(storeMarkers)
     }
-
-    if (map) {
-      getStores()
-    }
-  }, [map])
+  }, [map, stores, setStoreId])
 
   return markers
 }

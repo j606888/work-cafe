@@ -1,13 +1,24 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import useMarkers from "./useMarkers"
 import useGoogleMap from "./useGoogleMap"
 import StoreDrawer from "./StoreDrawer"
+import { getAllStores } from "../../apis/stores"
 
 function MapComponent() {
   const [storeId, setStoreId] = useState(null)
+  const [stores, setStores] = useState([])
   const ref = useRef(null)
   const map = useGoogleMap(ref)
-  useMarkers(map, setStoreId)
+  useMarkers(map, stores, setStoreId)
+
+  async function fetchAllStores() {
+    const res = await getAllStores({ page: 1, per: 200 })
+    setStores(res.data.stores)
+  }
+
+  useEffect(() => {
+    fetchAllStores()
+  }, [])
 
   return (
     <>
