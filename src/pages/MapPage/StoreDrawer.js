@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import {
   Box,
   Drawer,
@@ -8,22 +8,26 @@ import {
   Typography,
   ListItemIcon,
   ListItemText,
-  Button,
 } from "@mui/material"
 import {
   LocationOn as LocationOnIcon,
   Phone as PhoneIcon,
   AccessTime as ClockIcon,
-  Favorite as FavoriteIcon,
 } from "@mui/icons-material"
-import { red } from "@mui/material/colors"
 import { getStore } from "../../apis/stores"
 import RatingStars from "../../components/ui/RatingStars"
-import { toggleFavorite } from "../../apis/user/stores"
+import FavoriteContext from "../../context/FavoriteContext"
+import FavoriteButton from "./FavoriteButton"
 
 export default function StoreDrawer({ id, setStoreId }) {
+  const { favoriteStores, fetchFavoriteStores } = useContext(FavoriteContext)
   const [store, setStore] = useState(null)
   const [state, setState] = useState(false)
+
+  useEffect(() => {
+    console.log(fetchFavoriteStores)
+    fetchFavoriteStores()
+  }, [])
 
   useEffect(() => {
     if (id) {
@@ -53,10 +57,6 @@ export default function StoreDrawer({ id, setStoreId }) {
     setState(open)
   }
 
-  async function addToFavorite() {
-    await toggleFavorite(id)
-  }
-
   const list = () => (
     <Box
       sx={{ width: 400 }}
@@ -73,16 +73,11 @@ export default function StoreDrawer({ id, setStoreId }) {
           >
             {store.name}
           </Typography>
-          <Stack direction="row" ml={2} mb={2} spacing={1}>
-            <Button
-              variant="outlined"
-              // sx={{ color: red[500] }}
-              startIcon={<FavoriteIcon sx={{ color: red[500] }} />}
-              onClick={addToFavorite}
-            >
-              加到最愛
-            </Button>
-          </Stack>
+          <FavoriteButton
+            favoriteStores={favoriteStores}
+            store={store}
+            fetchFavoriteStores={fetchFavoriteStores}
+          />
           <Stack direction="row" ml={2} spacing={1}>
             <Typography variant="body2">{store.rating} </Typography>
             <RatingStars rating={store.rating} />

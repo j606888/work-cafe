@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAllFavoriteStores } from "../../apis/user/stores"
+import { getAllFavoriteStores } from "../../apis/user/favorites"
 export default function FavoriteStores({ user }) {
   const [stores, setStores] = useState([])
 

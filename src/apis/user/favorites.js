@@ -7,12 +7,13 @@ export const getAllFavoriteStores = ({ page, per }) => {
     per,
   }
 
-  return authAxios.get(apiPath.user.stores.getAllFavoriteStores, { params })
+  return authAxios.get(apiPath.user.favorites.getAllFavoriteStores, { params })
 }
 
 export const toggleFavorite = (id) => {
-  const originalPath = apiPath.user.stores.toggleFavoriteStore
-  const path = originalPath.replace(":id", id)
+  const body = {
+    store_id: id
+  }
 
-  return authAxios.post(path)
+  return authAxios.post(apiPath.user.favorites.toggleFavorite, body)
 }

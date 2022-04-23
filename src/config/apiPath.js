@@ -6,9 +6,9 @@ const apiPath = {
   },
   user: {
     getInfo: "/user/me",
-    stores: {
-      getAllFavoriteStores: "/user/stores/favorites",
-      toggleFavoriteStore: "/user/stores/:id/toggle-favorite",
+    favorites: {
+      getAllFavoriteStores: "/user/favorites",
+      toggleFavorite: "/user/favorites/toggle",
     },
   },
   stores: {
