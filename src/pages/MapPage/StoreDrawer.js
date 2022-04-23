@@ -1,28 +1,36 @@
-import * as React from "react"
-import Box from "@mui/material/Box"
-import Drawer from "@mui/material/Drawer"
-import List from "@mui/material/List"
-import Stack from "@mui/material/Stack"
-import ListItem from "@mui/material/ListItem"
-import Typography from "@mui/material/Typography"
-import ListItemIcon from "@mui/material/ListItemIcon"
-import ListItemText from "@mui/material/ListItemText"
+import { useState, useEffect,  } from "react"
+import {
+  Box,
+  Drawer,
+  List,
+  Stack,
+  ListItem,
+  Typography,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material"
+import {
+  LocationOn as LocationOnIcon,
+  Phone as PhoneIcon,
+  AccessTime as ClockIcon,
+} from "@mui/icons-material"
 import { getStore } from "../../apis/stores"
-import LocationOnIcon from "@mui/icons-material/LocationOn"
-import PhoneIcon from "@mui/icons-material/Phone"
 import RatingStars from "../../components/ui/RatingStars"
-import ClockIcon from "@mui/icons-material/AccessTime"
+import FavoriteButton from "./FavoriteButton"
 
-export default function StoreDrawer({ id, setStoreId }) {
-  const [store, setStore] = React.useState(null)
-  const [state, setState] = React.useState(false)
+export default function StoreDrawer({ id, setStoreId, favoriteStores, addToFavorite }) {
+  const [store, setStore] = useState(null)
+  const [state, setState] = useState(false)
+  const [isFavorite, setIsFavorite] = useState(false)
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (id) {
       setState(true)
       handleGetStore(id)
+      const isFavor = favoriteStores.some((s) => s.id === id)
+      setIsFavorite(isFavor)
     }
-  }, [id])
+  }, [id, favoriteStores])
 
   async function handleGetStore(id) {
     const res = await getStore(id)
@@ -49,7 +57,6 @@ export default function StoreDrawer({ id, setStoreId }) {
     <Box
       sx={{ width: 400 }}
       role="presentation"
-      // onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
       {store && (
@@ -62,6 +69,10 @@ export default function StoreDrawer({ id, setStoreId }) {
           >
             {store.name}
           </Typography>
+          <FavoriteButton
+            isFavorite={isFavorite}
+            addToFavorite={addToFavorite}
+          />
           <Stack direction="row" ml={2} spacing={1}>
             <Typography variant="body2">{store.rating} </Typography>
             <RatingStars rating={store.rating} />
@@ -104,7 +115,7 @@ export default function StoreDrawer({ id, setStoreId }) {
   )
 
   return (
-    <Drawer  anchor={"left"} open={state} onClose={toggleDrawer(false)}>
+    <Drawer anchor={"left"} open={state} onClose={toggleDrawer(false)}>
       {list()}
     </Drawer>
   )

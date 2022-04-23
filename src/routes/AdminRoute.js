@@ -3,10 +3,10 @@ import { useContext } from 'react'
 import AuthContext from '../context/AuthContext'
 
 export default function AdminRoute() {
-  const { isInit, user } = useContext(AuthContext)
+  const { user, isLoading } = useContext(AuthContext)
+  console.log({ isLoading })
 
-
-  if (!isInit) {
+  if (isLoading) {
     return <h1>Initing...</h1>
   }
 
