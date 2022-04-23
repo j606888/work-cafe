@@ -15,6 +15,7 @@ export default function useGoogleMarkers({ map, items, setItems, setItemId }) {
           lat,
           lng,
         },
+        // label: {text: name, color: '#999', fontSize: '8px', fontWeight: 'bold'},
         label: name,
         map: map,
       })
