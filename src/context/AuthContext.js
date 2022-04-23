@@ -5,27 +5,26 @@ const AuthContext = createContext({
   loginUser: () => {},
   logoutUser: () => {},
   user: "",
-  isLogin: false,
-  isInit: false,
+  isLoading: false,
 })
 
 export default AuthContext
 
 export const AuthProvider = ({ children }) => {
-  let [user, setUser] = useState(null)
-  const [isLogin, setIsLogin] = useState(false)
-  const [isInit, setIsInit] = useState(false)
+  const [user, setUser] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken')
     const refreshToken = localStorage.getItem('refreshToken')
+
     if (accessToken) {
       loginUser({
         access_token: accessToken,
         refresh_token: refreshToken,
       })
     } else {
-      setIsInit(true)
+      setIsLoading(false)
     }
   }, [])
 
@@ -36,23 +35,19 @@ export const AuthProvider = ({ children }) => {
     const res = await getInfo()
     const { id, email, name, role } = res.data
     setUser({ id, email, name, role })
-    setIsLogin(true)
-    setIsInit(true)
+    setIsLoading(false)
   }
 
   const logoutUser = () => {
     setUser(null)
-    setIsLogin(false)
     localStorage.clear()
-    window.location.replace('/login')
   }
 
   let contextData = {
     loginUser,
     logoutUser,
     user,
-    isLogin,
-    isInit,
+    isLoading,
   }
   return (
     <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>

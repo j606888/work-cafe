@@ -2,12 +2,18 @@ import IconButton from "@mui/material/IconButton"
 import { AccountCircle } from "@mui/icons-material"
 import { useState, useContext } from "react"
 import { Menu, MenuItem } from "@mui/material"
-import { Link as RouterLink } from "react-router-dom"
+import { Link as RouterLink, useNavigate } from "react-router-dom"
 import AuthContext from "../../../context/AuthContext"
 
 const LoginMenu = () => {
+  const navigate = useNavigate()
   const { logoutUser } = useContext(AuthContext)
   const [anchorEl, setAnchorEl] = useState(null)
+
+  async function handleLogout() {
+    await logoutUser()
+    navigate('/login')
+  }
 
   return (
     <>
@@ -32,7 +38,7 @@ const LoginMenu = () => {
         <MenuItem component={RouterLink} to="/stores">
           一般用戶
         </MenuItem>
-        <MenuItem onClick={() => logoutUser()}>登出</MenuItem>
+        <MenuItem onClick={() => handleLogout()}>登出</MenuItem>
       </Menu>
     </>
   )

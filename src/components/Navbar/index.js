@@ -13,7 +13,7 @@ const NAVS = [
 ]
 
 const Navbar = () => {
-  const { isLogin, user } = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
 
   return (
     <AppBar>
@@ -23,8 +23,8 @@ const Navbar = () => {
           Work Cafe
         </Typography>
         <NavLinks navs={NAVS} />
-        {isLogin && <LoginMenu user={user} />}
-        {!isLogin && (
+        {user && <LoginMenu user={user} />}
+        {!user && (
           <Button color="inherit" component={RouterLink} to="/login">
             LOGIN
           </Button>

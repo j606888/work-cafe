@@ -3,13 +3,13 @@ import { useContext } from "react"
 import AuthContext from "../context/AuthContext"
 
 export default function UserRoute() {
-  const { isLogin, isInit } = useContext(AuthContext)
+  const { isLoading, user } = useContext(AuthContext)
 
-  if (!isInit) {
-    return <h1>Initing...</h1>
+  if (isLoading) {
+    return <h1>isLoading...</h1>
   }
 
-  if (!isLogin) {
+  if (!user) {
     return <Navigate to="/login" replace />
   }
 

@@ -14,6 +14,7 @@ const useMarkers = (map, items, setItemId) => {
             lng,
           },
           label: name,
+          // icon: '/favorite-icon.png',
           map: map,
         })
 

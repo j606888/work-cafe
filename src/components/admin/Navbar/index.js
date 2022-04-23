@@ -25,7 +25,7 @@ const theme = createTheme({
 })
 
 const Navbar = () => {
-  const { isLogin } = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
 
   return (
     <ThemeProvider theme={theme}>
@@ -36,8 +36,8 @@ const Navbar = () => {
             Work Cafe (Admin)
           </Typography>
           <NavLinks navs={NAVS} />
-          {isLogin && <LoginMenu />}
-          {!isLogin && (
+          {user && <LoginMenu />}
+          {!user && (
             <Button color="inherit" component={RouterLink} to="/login">
               LOGIN
             </Button>
