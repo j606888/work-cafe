@@ -37,7 +37,6 @@ const StoresPage = () => {
     setParams({ ...params, per: +event.target.value, page: 1 })
   }
 
-
   return (
     <UserLayout maxWidth="none" mt={3}>
       {paging && (

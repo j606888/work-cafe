@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
-import useMarkers from "./useMarkers"
-import useGoogleMap from "./useGoogleMap"
+import useGoogleMap from "../../../hooks/useGoogleMap"
+import useGoogleMarkers from "../../../hooks/useGoogleMarkers"
 import StoreDrawer from "./StoreDrawer"
 import CrawlBoard from "./CrawlBoard"
 import { getAllMapCrawlers } from "../../../apis/admin/map_crawlers"
@@ -11,7 +11,7 @@ function MapComponent() {
   const ref = useRef(null)
   const map = useGoogleMap(ref, openBoard)
   const [mapCrawlers, setMapCrawlers] = useState([])
-  const markerObjs = useMarkers(map, mapCrawlers, setMapCrawlerId)
+  const markerObjs = useGoogleMarkers(map, mapCrawlers, setMapCrawlerId)
 
    async function getMapCrawlers() {
      const res = await getAllMapCrawlers({
