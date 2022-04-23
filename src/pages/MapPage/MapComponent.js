@@ -1,9 +1,11 @@
-import { useEffect, useRef, useState, useContext} from "react"
+import { useEffect, useRef, useState, useContext } from "react"
 import useGoogleMap from "../../hooks/useGoogleMap"
 import useGoogleMarkers from "../../hooks/useGoogleMarkers"
 import StoreDrawer from "./StoreDrawer"
 import { getAllStores } from "../../apis/stores"
 import FavoriteContext from "../../context/FavoriteContext"
+import useGoogleCluster from "../../hooks/useGoogleCluster"
+import useGoogleMarkerLabel from "../../hooks/useGoogleMarkerLabel"
 
 function MapComponent() {
   const { favoriteStores, fetchFavoriteStores, toggleFavroiteStore } =
@@ -12,26 +14,10 @@ function MapComponent() {
   const [stores, setStores] = useState([])
   const ref = useRef(null)
   const map = useGoogleMap(ref)
-  const markers = useGoogleMarkers(map, stores, setStoreId)
-
-  useEffect(() => {
-    const favoriteMap = {}
-    favoriteStores.forEach((favariteStore) => {
-      favoriteMap[favariteStore.id] = true
-    })
-
-    markers.forEach(markerObj => {
-      const { id, marker } = markerObj
-      if (!!favoriteMap[id]) {
-        marker.setOptions({ icon: "/favorite-icon.png" })
-      } else {
-        marker.setOptions({
-          icon: "/blue_pin.png",
-        })
-      }
-    })
-  }, [markers, favoriteStores])
-
+  const markerIsLoaded = useGoogleMarkers(map, stores, setStores, setStoreId)
+  useGoogleMarkerLabel(stores, favoriteStores)
+  useGoogleCluster(map, stores, markerIsLoaded)
+  
   async function fetchAllStores() {
     await fetchFavoriteStores()
     const res = await getAllStores({ page: 1, per: 200 })
