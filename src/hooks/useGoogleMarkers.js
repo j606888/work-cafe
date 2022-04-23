@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
 
-const useMarkers = (map, stores, setStoreId) => {
+const useMarkers = (map, items, setItemId) => {
   const [markers, setMarkers] = useState([])
 
   useEffect(() => {
-    if (map && stores.length > 0) {
-      const storeMarkers = stores.map((store) => {
+    if (map && items.length > 0) {
+      const markerObjs = items.map((store) => {
         const { id, name, lat, lng } = store
         const marker = new window.google.maps.Marker()
         marker.setOptions({
@@ -19,16 +19,16 @@ const useMarkers = (map, stores, setStoreId) => {
 
         marker.addListener("click", () => {
           // map.setCenter(marker.getPosition())
-          setStoreId(id)
+          if (setItemId) setItemId(id)
           // This is how to remove a marker
           // marker.setMap(null)
         })
-        return { id, marker}
+        return { id, marker }
       })
-      
-      setMarkers(storeMarkers)
+
+      setMarkers(markerObjs)
     }
-  }, [map, stores, setStoreId])
+  }, [map, items, setItemId])
 
   return markers
 }
