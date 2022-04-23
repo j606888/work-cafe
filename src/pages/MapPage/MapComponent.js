@@ -12,7 +12,25 @@ function MapComponent() {
   const [stores, setStores] = useState([])
   const ref = useRef(null)
   const map = useGoogleMap(ref)
-  useGoogleMarkers(map, stores, setStoreId, favoriteStores)
+  const markers = useGoogleMarkers(map, stores, setStoreId)
+
+  useEffect(() => {
+    const favoriteMap = {}
+    favoriteStores.forEach((favariteStore) => {
+      favoriteMap[favariteStore.id] = true
+    })
+
+    markers.forEach(markerObj => {
+      const { id, marker } = markerObj
+      if (!!favoriteMap[id]) {
+        marker.setOptions({ icon: "/favorite-icon.png" })
+      } else {
+        marker.setOptions({
+          icon: "/blue_pin.png",
+        })
+      }
+    })
+  }, [markers, favoriteStores])
 
   async function fetchAllStores() {
     await fetchFavoriteStores()
