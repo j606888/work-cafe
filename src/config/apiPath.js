@@ -6,6 +6,10 @@ const apiPath = {
   },
   user: {
     getInfo: "/user/me",
+    stores: {
+      getAllFavoriteStores: "/user/stores/favorites",
+      toggleFavoriteStore: "/user/stores/:id/toggle-favorite",
+    },
   },
   stores: {
     getAllStores: "/stores",
@@ -27,7 +31,7 @@ const apiPath = {
       getAllMapCrawlers: "/admin/map_crawlers",
       bindMapCrawler: "/admin/map_crawlers/:id/bind",
       denyMapCrawler: "/admin/map_crawlers/:id/deny",
-      search: "/admin/map_crawlers/search"
+      search: "/admin/map_crawlers/search",
     },
   },
 }
