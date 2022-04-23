@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react"
+import { useState, useEffect,  } from "react"
 import {
   Box,
   Drawer,
@@ -16,25 +16,21 @@ import {
 } from "@mui/icons-material"
 import { getStore } from "../../apis/stores"
 import RatingStars from "../../components/ui/RatingStars"
-import FavoriteContext from "../../context/FavoriteContext"
 import FavoriteButton from "./FavoriteButton"
 
-export default function StoreDrawer({ id, setStoreId }) {
-  const { favoriteStores, fetchFavoriteStores } = useContext(FavoriteContext)
+export default function StoreDrawer({ id, setStoreId, favoriteStores, addToFavorite }) {
   const [store, setStore] = useState(null)
   const [state, setState] = useState(false)
-
-  useEffect(() => {
-    console.log(fetchFavoriteStores)
-    fetchFavoriteStores()
-  }, [])
+  const [isFavorite, setIsFavorite] = useState(false)
 
   useEffect(() => {
     if (id) {
       setState(true)
       handleGetStore(id)
+      const isFavor = favoriteStores.some((s) => s.id === id)
+      setIsFavorite(isFavor)
     }
-  }, [id])
+  }, [id, favoriteStores])
 
   async function handleGetStore(id) {
     const res = await getStore(id)
@@ -74,9 +70,8 @@ export default function StoreDrawer({ id, setStoreId }) {
             {store.name}
           </Typography>
           <FavoriteButton
-            favoriteStores={favoriteStores}
-            store={store}
-            fetchFavoriteStores={fetchFavoriteStores}
+            isFavorite={isFavorite}
+            addToFavorite={addToFavorite}
           />
           <Stack direction="row" ml={2} spacing={1}>
             <Typography variant="body2">{store.rating} </Typography>

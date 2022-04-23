@@ -1,22 +1,30 @@
 import { useEffect, useState } from "react"
 
-const useMarkers = (map, items, setItemId) => {
+const useMarkers = (map, items, setItemId, favoriteStores) => {
   const [markers, setMarkers] = useState([])
 
   useEffect(() => {
     if (map && items.length > 0) {
+      const favoriteMap = {}
+      favoriteStores.forEach((store) => {
+        favoriteMap[store.id] = true
+      })
+
       const markerObjs = items.map((store) => {
         const { id, name, lat, lng } = store
         const marker = new window.google.maps.Marker()
-        marker.setOptions({
+        const options = {
           position: {
             lat,
             lng,
           },
           label: name,
-          // icon: '/favorite-icon.png',
           map: map,
-        })
+        }
+        if (!!favoriteMap[id]) {
+          options["icon"] = "/favorite-icon.png"
+        }
+        marker.setOptions(options)
 
         marker.addListener("click", () => {
           // map.setCenter(marker.getPosition())
