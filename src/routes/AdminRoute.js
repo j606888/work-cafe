@@ -3,11 +3,16 @@ import { useContext } from 'react'
 import AuthContext from '../context/AuthContext'
 
 export default function AdminRoute() {
-  const { user } = useContext(AuthContext)
+  const { isInit, user } = useContext(AuthContext)
 
-  if (user.role !== 'admin') {
-    return <Navigate to="/stores" replace />
+
+  if (!isInit) {
+    return <h1>Initing...</h1>
   }
 
-  return <Outlet />
+  if (user && user.role === 'admin') {
+    return <Outlet />
+  }
+
+  return <Navigate to="/stores" replace />
 }
