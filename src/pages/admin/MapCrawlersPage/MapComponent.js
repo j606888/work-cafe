@@ -4,14 +4,21 @@ import useGoogleMarkers from "../../../hooks/useGoogleMarkers"
 import StoreDrawer from "./StoreDrawer"
 import CrawlBoard from "./CrawlBoard"
 import { getAllMapCrawlers } from "../../../apis/admin/map_crawlers"
+import useGoogleCluster from "../../../hooks/useGoogleCluster"
 
 function MapComponent() {
   const [mapCrawlerId, setMapCrawlerId] = useState(null)
   const [location, setLocation] = useState(null)
+  const [mapCrawlers, setMapCrawlers] = useState([])
   const ref = useRef(null)
   const map = useGoogleMap(ref, openBoard)
-  const [mapCrawlers, setMapCrawlers] = useState([])
-  const markerObjs = useGoogleMarkers(map, mapCrawlers, setMapCrawlerId)
+  const markerIsLoaded = useGoogleMarkers(
+    map,
+    mapCrawlers,
+    setMapCrawlers,
+    setMapCrawlerId
+  )
+  useGoogleCluster(map, mapCrawlers, markerIsLoaded)
 
    async function getMapCrawlers() {
      const res = await getAllMapCrawlers({
@@ -32,13 +39,13 @@ function MapComponent() {
   }
 
   function removeMarker(id) {
-    const targetMarker = markerObjs.find(markerObj => markerObj.id === id)
-    targetMarker.marker.setMap(null)
+    const mapCrawler = mapCrawlers.find(mc => mc.id === id)
+    mapCrawler.marker.setMap(null)
   }
 
   function handleRefresh() {
-    markerObjs.forEach(markerObj => {
-      markerObj.marker.setMap(null)
+    mapCrawlers.forEach((mapCrawler) => {
+      mapCrawler.marker.setMap(null)
     })
     setMapCrawlers([])
     getMapCrawlers()
