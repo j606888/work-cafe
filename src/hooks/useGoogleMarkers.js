@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 
-export default function useGoogleMarkers(map, items, setItems, setItemId) {
+export default function useGoogleMarkers({ map, items, setItems, setItemId }) {
   const [markerIsLoaded, setMarkerIsLoaded] = useState(false)
-  
+
   useEffect(() => {
     const isReady = map && items.length > 0 && !markerIsLoaded
     if (!isReady) return

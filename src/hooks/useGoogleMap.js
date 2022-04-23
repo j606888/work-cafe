@@ -9,7 +9,7 @@ const DEFAULT_SETUP = {
   fullscreenControl: false,
 }
 
-export default function useGoogleMap(ref, onClick) {
+export default function useGoogleMap({ ref, handleOnClick }) {
   const [map, setMap] = useState(null)
 
   useEffect(() => {
@@ -18,14 +18,14 @@ export default function useGoogleMap(ref, onClick) {
 
       googleMap.addListener("click", (mapMouseEvent) => {
         const location = mapMouseEvent.latLng.toJSON()
-        if (onClick) {
-          onClick(location.lat, location.lng)
+        if (handleOnClick) {
+          handleOnClick(location.lat, location.lng)
         }
       })
 
       setMap(googleMap)
     }
-  }, [ref, map, onClick])
+  }, [ref, map, handleOnClick])
 
   return map
 }

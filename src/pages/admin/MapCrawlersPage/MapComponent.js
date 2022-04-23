@@ -11,24 +11,24 @@ function MapComponent() {
   const [location, setLocation] = useState(null)
   const [mapCrawlers, setMapCrawlers] = useState([])
   const ref = useRef(null)
-  const map = useGoogleMap(ref, openBoard)
-  const markerIsLoaded = useGoogleMarkers(
+  const map = useGoogleMap({ ref, handleOnClick: openBoard })
+  const markerIsLoaded = useGoogleMarkers({
     map,
-    mapCrawlers,
-    setMapCrawlers,
-    setMapCrawlerId
-  )
-  useGoogleCluster(map, mapCrawlers, markerIsLoaded)
+    items: mapCrawlers,
+    setItems: setMapCrawlers,
+    setItemId: setMapCrawlerId,
+  })
+  useGoogleCluster({ map, items: mapCrawlers, isLoaded: markerIsLoaded })
 
-   async function getMapCrawlers() {
-     const res = await getAllMapCrawlers({
-       page: 1,
-       per: 200,
-       status: "created",
-     })
-     const { map_crawlers, paging } = res.data
-     setMapCrawlers(map_crawlers)
-   }
+  async function getMapCrawlers() {
+    const res = await getAllMapCrawlers({
+      page: 1,
+      per: 200,
+      status: "created",
+    })
+    const { map_crawlers, paging } = res.data
+    setMapCrawlers(map_crawlers)
+  }
 
   useEffect(() => {
     getMapCrawlers()
@@ -39,7 +39,7 @@ function MapComponent() {
   }
 
   function removeMarker(id) {
-    const mapCrawler = mapCrawlers.find(mc => mc.id === id)
+    const mapCrawler = mapCrawlers.find((mc) => mc.id === id)
     mapCrawler.marker.setMap(null)
   }
 

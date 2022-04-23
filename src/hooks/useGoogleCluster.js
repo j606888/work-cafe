@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 import { MarkerClusterer } from "@googlemaps/markerclusterer"
 
-export default function useGoogleCluster(map, items, isLoaded) {
+export default function useGoogleCluster({ map, items, isLoaded }) {
   const [cluster, setCluster] = useState(null)
 
   useEffect(() => {

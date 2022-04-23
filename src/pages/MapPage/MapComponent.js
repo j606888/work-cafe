@@ -13,11 +13,16 @@ function MapComponent() {
   const [storeId, setStoreId] = useState(null)
   const [stores, setStores] = useState([])
   const ref = useRef(null)
-  const map = useGoogleMap(ref)
-  const markerIsLoaded = useGoogleMarkers(map, stores, setStores, setStoreId)
-  useGoogleMarkerLabel(stores, favoriteStores)
-  useGoogleCluster(map, stores, markerIsLoaded)
-  
+  const map = useGoogleMap({ ref })
+  const markerIsLoaded = useGoogleMarkers({
+    map,
+    items: stores,
+    setItems: setStores,
+    setItemId: setStoreId,
+  })
+  useGoogleMarkerLabel({ items: stores, favoriteItems: favoriteStores })
+  useGoogleCluster({ map, items: stores, isLoaded: markerIsLoaded })
+
   async function fetchAllStores() {
     await fetchFavoriteStores()
     const res = await getAllStores({ page: 1, per: 200 })
