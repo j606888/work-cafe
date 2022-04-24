@@ -6,7 +6,9 @@
 - [] 顯示照片
 - [] 顯示評論
 - [] 以地區 Filter (Table)
-- [] 網址紀錄座標
+- [x] 網址紀錄座標
 - [] 隨著座標顯示地圖店家
 - [] 地圖上只顯示喜愛，不顯示喜愛
 ### Questions
+
+* updateFilters({ city, districts }) 那邊如果加 `updateFilters` 就會無限循環
