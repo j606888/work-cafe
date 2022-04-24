@@ -9,7 +9,8 @@ import {
   Typography,
   ListItemIcon,
   ListItemText,
-  Divider
+  Divider,
+  Grid
 } from "@mui/material"
 import {
   LocationOn as LocationOnIcon,
@@ -128,16 +129,32 @@ export default function StoreDrawer({
               </ListItemIcon>
               <ListItemText primary="營業時間" />
             </ListItem>
-            <Stack ml={12}>
+            <Grid container spacing={1}>
               {store.source_data.opening_hours.map((hour) => {
                 return (
-                  <Typography key={hour} variant="subtitle1" mb={1}>
-                    {hour}
-                  </Typography>
+                  <>
+                    <Grid item xs={2}></Grid>
+                    <Grid item xs={8}>
+                      <Typography key={hour} variant="body2" color="#5c5c5c" mb={0.8}>
+                        {hour}
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={2}></Grid>
+                  </>
                 )
               })}
-            </Stack>
+            </Grid>
+            <Stack alignItems="center" justifyContent="center"></Stack>
           </List>
+          <Divider />
+          <Typography
+            variant="subtitle1"
+            sx={{ fontWeight: "500" }}
+            mt={2}
+            ml={2}
+          >
+            評論
+          </Typography>
           {store.source_data.reviews.map((review) => (
             <ReviewCard key={review.time} review={review} />
           ))}
