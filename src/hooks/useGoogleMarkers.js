@@ -1,49 +1,33 @@
 import { useEffect, useState } from "react"
-import { MarkerClusterer } from "@googlemaps/markerclusterer"
 
-
-const useMarkers = (map, items, setItemId) => {
-  const [markers, setMarkers] = useState([])
-  const [markerClusterer, setMarkerClusterer] = useState(null)
+export default function useGoogleMarkers({ map, items, setItems, setItemId }) {
+  const [markerIsLoaded, setMarkerIsLoaded] = useState(false)
 
   useEffect(() => {
-    if (!markerClusterer && markers.length > 0) {
-      const markersObj = markers.map(marker => marker.marker)
-      const markerCluster = new MarkerClusterer({ map, markers: markersObj })
-      setMarkerClusterer(markerCluster)
-    }
-  }, [markers, markerClusterer, map])
-  
-  
-  useEffect(() => {
-    if (map && items.length > 0) {
-      const markerObjs = items.map((store) => {
-        const { id, name, lat, lng } = store
-        const marker = new window.google.maps.Marker()
-        const options = {
-          position: {
-            lat,
-            lng,
-          },
-          label: name,
-          map: map,
-        }
-        marker.setOptions(options)
+    const isReady = map && items.length > 0 && !markerIsLoaded
+    if (!isReady) return
 
-        marker.addListener("click", () => {
-          // map.setCenter(marker.getPosition())
-          if (setItemId) setItemId(id)
-          // This is how to remove a marker
-          // marker.setMap(null)
-        })
-        return { id, marker }
+    items.forEach((item) => {
+      const marker = new window.google.maps.Marker()
+      const { id, name, lat, lng } = item
+      marker.setOptions({
+        position: {
+          lat,
+          lng,
+        },
+        // label: {text: name, color: '#999', fontSize: '8px', fontWeight: 'bold'},
+        label: name,
+        map: map,
       })
+      marker.addListener("click", () => {
+        setItemId(id)
+      })
+      item.marker = marker
+    })
 
-      setMarkers(markerObjs)
-    }
-  }, [map, items, setItemId])
+    setItems(items)
+    setMarkerIsLoaded(true)
+  }, [map, items, setItems, setItemId, markerIsLoaded])
 
-  return markers
+  return markerIsLoaded
 }
-
-export default useMarkers
