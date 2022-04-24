@@ -4,12 +4,15 @@ import useGoogleMarkers from "../../hooks/useGoogleMarkers"
 import StoreDrawer from "./StoreDrawer"
 import { getAllStores } from "../../apis/stores"
 import FavoriteContext from "../../context/FavoriteContext"
+import HiddenContext from "../../context/HiddenContext"
 import useGoogleCluster from "../../hooks/useGoogleCluster"
 import useGoogleMarkerLabel from "../../hooks/useGoogleMarkerLabel"
+import useGoogleMarkerHidden from "../../hooks/useGoogleMarkerHidden"
 
 function MapComponent() {
   const { favoriteStores, fetchFavoriteStores, toggleFavroiteStore } =
     useContext(FavoriteContext)
+  const { hiddenStores, fetchHiddenStores, createHiddenStore } = useContext(HiddenContext)
   const [storeId, setStoreId] = useState(null)
   const [stores, setStores] = useState([])
   const ref = useRef(null)
@@ -21,20 +24,30 @@ function MapComponent() {
     setItemId: setStoreId,
   })
   useGoogleMarkerLabel({ items: stores, favoriteItems: favoriteStores })
+  useGoogleMarkerHidden({
+    items: stores,
+    hiddenItems: hiddenStores,
+    setItems: setStores
+  })
   useGoogleCluster({ map, items: stores, isLoaded: markerIsLoaded })
 
   async function fetchAllStores() {
-    await fetchFavoriteStores()
     const res = await getAllStores({ page: 1, per: 200 })
     setStores(res.data.stores)
+    await fetchFavoriteStores()
+    await fetchHiddenStores()
   }
 
   useEffect(() => {
     fetchAllStores()
   }, [])
 
-  async function addFavoriteHandler() {
-    await toggleFavroiteStore(storeId)
+  function addFavoriteHandler() {
+    toggleFavroiteStore(storeId)
+  }
+
+  function addHiddenHandler() {
+    createHiddenStore(storeId)
   }
 
   return (
@@ -44,6 +57,7 @@ function MapComponent() {
         setStoreId={setStoreId}
         favoriteStores={favoriteStores}
         addToFavorite={addFavoriteHandler}
+        addToHidden={addHiddenHandler}
       />
       <div style={{ height: "10px" }} />
       <div ref={ref} style={{ width: "100%", height: "80%" }}></div>

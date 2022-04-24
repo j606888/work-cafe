@@ -30,8 +30,6 @@ export default function FavoriteButton({ isFavorite, addToFavorite }) {
   }
 
   return (
-    <Stack direction="row" ml={2} mb={2} spacing={1}>
-      {button}
-    </Stack>
+    button
   )
 }

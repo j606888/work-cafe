@@ -3,6 +3,7 @@ import {
   Box,
   Drawer,
   List,
+  Button,
   Stack,
   ListItem,
   Typography,
@@ -18,7 +19,7 @@ import { getStore } from "../../apis/stores"
 import RatingStars from "../../components/ui/RatingStars"
 import FavoriteButton from "./FavoriteButton"
 
-export default function StoreDrawer({ id, setStoreId, favoriteStores, addToFavorite }) {
+export default function StoreDrawer({ id, setStoreId, favoriteStores, addToFavorite, addToHidden }) {
   const [store, setStore] = useState(null)
   const [state, setState] = useState(false)
   const [isFavorite, setIsFavorite] = useState(false)
@@ -69,10 +70,15 @@ export default function StoreDrawer({ id, setStoreId, favoriteStores, addToFavor
           >
             {store.name}
           </Typography>
-          <FavoriteButton
-            isFavorite={isFavorite}
-            addToFavorite={addToFavorite}
-          />
+          <Stack direction="row" ml={2} mb={2} spacing={1}>
+            <FavoriteButton
+              isFavorite={isFavorite}
+              addToFavorite={addToFavorite}
+            />
+            <Button variant="outlinted" onClick={addToHidden}>
+              隱藏
+            </Button>
+          </Stack>
           <Stack direction="row" ml={2} spacing={1}>
             <Typography variant="body2">{store.rating} </Typography>
             <RatingStars rating={store.rating} />

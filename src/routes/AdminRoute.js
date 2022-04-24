@@ -4,7 +4,6 @@ import AuthContext from '../context/AuthContext'
 
 export default function AdminRoute() {
   const { user, isLoading } = useContext(AuthContext)
-  console.log({ isLoading })
 
   if (isLoading) {
     return <h1>Initing...</h1>
