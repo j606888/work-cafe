@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export default function useGoogleMarkerLabel({ items, favoriteItems }) {
+export default function useGoogleMarkerFavoriteLabel({ items, favoriteItems }) {
   const [favoriteMap, setFavoriteMap] = useState({})
   
   useEffect(() => {

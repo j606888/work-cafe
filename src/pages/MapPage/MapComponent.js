@@ -6,7 +6,7 @@ import { getAllStores } from "../../apis/stores"
 import FavoriteContext from "../../context/FavoriteContext"
 import HiddenContext from "../../context/HiddenContext"
 import useGoogleCluster from "../../hooks/useGoogleCluster"
-import useGoogleMarkerLabel from "../../hooks/useGoogleMarkerLabel"
+import useGoogleMarkerFavoriteLabel from "../../hooks/useGoogleMarkerFavoriteLabel"
 import useGoogleMarkerHidden from "../../hooks/useGoogleMarkerHidden"
 
 function MapComponent() {
@@ -23,7 +23,7 @@ function MapComponent() {
     setItems: setStores,
     setItemId: setStoreId,
   })
-  useGoogleMarkerLabel({ items: stores, favoriteItems: favoriteStores })
+  useGoogleMarkerFavoriteLabel({ items: stores, favoriteItems: favoriteStores })
   useGoogleMarkerHidden({
     items: stores,
     hiddenItems: hiddenStores,

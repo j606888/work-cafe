@@ -5,6 +5,7 @@ import StoreDrawer from "./StoreDrawer"
 import CrawlBoard from "./CrawlBoard"
 import { getAllMapCrawlers } from "../../../apis/admin/map_crawlers"
 import useGoogleCluster from "../../../hooks/useGoogleCluster"
+import useGoogleMarkerCrawledLabel from "../../../hooks/useGoogleMarkerCrawledLabel"
 
 function MapComponent() {
   const [mapCrawlerId, setMapCrawlerId] = useState(null)
@@ -18,13 +19,13 @@ function MapComponent() {
     setItems: setMapCrawlers,
     setItemId: setMapCrawlerId,
   })
+  useGoogleMarkerCrawledLabel({ items: mapCrawlers })
   useGoogleCluster({ map, items: mapCrawlers, isLoaded: markerIsLoaded })
 
   async function getMapCrawlers() {
     const res = await getAllMapCrawlers({
       page: 1,
-      per: 200,
-      status: "created",
+      per: 500,
     })
     const { map_crawlers, paging } = res.data
     setMapCrawlers([...map_crawlers])
