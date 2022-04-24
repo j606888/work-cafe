@@ -13,6 +13,7 @@ import {
 import { getAllStores } from "../../apis/stores"
 import Link from "@mui/material/Link"
 import RatingStars from "../../components/ui/RatingStars"
+import CitySelector from "../../components/ui/CitySelector"
 
 const StoresPage = () => {
   const [stores, setStores] = useState([])
@@ -41,6 +42,7 @@ const StoresPage = () => {
     <UserLayout maxWidth="none" mt={3}>
       {paging && (
         <>
+          <CitySelector/>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 300 }} aria-label="simple table">
               <TableHead>
