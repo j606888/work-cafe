@@ -17,7 +17,7 @@ function MapComponent() {
   const [stores, setStores] = useState([])
   const ref = useRef(null)
   const map = useGoogleMap({ ref })
-  const markerIsLoaded = useGoogleMarkers({
+  const { markerIsLoaded } = useGoogleMarkers({
     map,
     items: stores,
     setItems: setStores,

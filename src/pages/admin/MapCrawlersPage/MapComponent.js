@@ -12,7 +12,7 @@ function MapComponent() {
   const [mapCrawlers, setMapCrawlers] = useState([])
   const ref = useRef(null)
   const map = useGoogleMap({ ref, handleOnClick: openBoard })
-  const markerIsLoaded = useGoogleMarkers({
+  const { markerIsLoaded, setMarkerIsLoaded } = useGoogleMarkers({
     map,
     items: mapCrawlers,
     setItems: setMapCrawlers,
@@ -27,12 +27,16 @@ function MapComponent() {
       status: "created",
     })
     const { map_crawlers, paging } = res.data
-    setMapCrawlers(map_crawlers)
+    setMapCrawlers([...map_crawlers])
   }
 
   useEffect(() => {
     getMapCrawlers()
   }, [])
+
+  useEffect(() => {
+    console.log("I am changed")
+  }, [mapCrawlers])
 
   function openBoard(lat, lng) {
     setLocation(`${lat},${lng}`)
@@ -41,6 +45,8 @@ function MapComponent() {
   function removeMarker(id) {
     const mapCrawler = mapCrawlers.find((mc) => mc.id === id)
     mapCrawler.marker.setMap(null)
+    mapCrawler.hidden = true
+    setMapCrawlers([...mapCrawlers])
   }
 
   function handleRefresh() {
@@ -48,6 +54,7 @@ function MapComponent() {
       mapCrawler.marker.setMap(null)
     })
     setMapCrawlers([])
+    setMarkerIsLoaded(false)
     getMapCrawlers()
   }
 

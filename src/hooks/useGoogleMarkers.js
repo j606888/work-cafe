@@ -29,5 +29,5 @@ export default function useGoogleMarkers({ map, items, setItems, setItemId }) {
     setMarkerIsLoaded(true)
   }, [map, items, setItems, setItemId, markerIsLoaded])
 
-  return markerIsLoaded
+  return { markerIsLoaded, setMarkerIsLoaded }
 }
