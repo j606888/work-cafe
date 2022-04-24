@@ -10,6 +10,10 @@ const apiPath = {
       getAllFavoriteStores: "/user/favorites",
       toggleFavorite: "/user/favorites/toggle",
     },
+    hiddens: {
+      getAllHiddenStores: "/user/hiddens",
+      createHidden: "/user/hiddens",
+    },
   },
   stores: {
     getAllStores: "/stores",
