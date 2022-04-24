@@ -9,6 +9,7 @@ import {
   Typography,
   ListItemIcon,
   ListItemText,
+  Divider
 } from "@mui/material"
 import {
   LocationOn as LocationOnIcon,
@@ -18,6 +19,7 @@ import {
 import { getStore } from "../../apis/stores"
 import RatingStars from "../../components/ui/RatingStars"
 import FavoriteButton from "./FavoriteButton"
+import ReviewCard from "../../components/ui/reviewCard"
 
 export default function StoreDrawer({
   id,
@@ -68,18 +70,36 @@ export default function StoreDrawer({
     >
       {store && (
         <>
-          <Stack sx={{ width: 400, height: 240, overflow: 'hidden' }} justifyContent='center' alignItems='center'>
-            <img src={store.image_url} alt={store.name} style={{ maxWidth: '100%', height: 'auto'}} />
+          <Stack
+            sx={{ width: 400, height: 240, overflow: "hidden" }}
+            justifyContent="center"
+            alignItems="center"
+          >
+            <img
+              src={store.image_url}
+              alt={store.name}
+              style={{ maxWidth: "100%", height: "auto" }}
+            />
           </Stack>
           <Typography
             id="modal-modal-title"
             variant="h6"
             component="h2"
-            sx={{ ml: 2, mt: 2, mb: 1 }}
+            sx={{ ml: 3, mt: 2, mb: 1 }}
           >
             {store.name}
           </Typography>
-          <Stack direction="row" ml={2} mb={2} spacing={1}>
+          <Stack direction="row" ml={3} mb={2} spacing={1}>
+            <Typography variant="body2" color="#999">
+              {store.rating}{" "}
+            </Typography>
+            <RatingStars rating={store.rating} />
+            <Typography variant="body2" color="#1A73E8">
+              {store.user_ratings_total} 則評論
+            </Typography>
+          </Stack>
+          <Divider />
+          <Stack direction="row" my={2} mx={3} spacing={1}>
             <FavoriteButton
               isFavorite={isFavorite}
               addToFavorite={addToFavorite}
@@ -88,13 +108,7 @@ export default function StoreDrawer({
               隱藏
             </Button>
           </Stack>
-          <Stack direction="row" ml={2} spacing={1}>
-            <Typography variant="body2">{store.rating} </Typography>
-            <RatingStars rating={store.rating} />
-            <Typography variant="body2">
-              {store.user_ratings_total} 則評論
-            </Typography>
-          </Stack>
+          <Divider />
           <List>
             <ListItem button component="a" target="_blank" href={store.url}>
               <ListItemIcon>
@@ -124,6 +138,9 @@ export default function StoreDrawer({
               })}
             </Stack>
           </List>
+          {store.source_data.reviews.map((review) => (
+            <ReviewCard key={review.time} review={review} />
+          ))}
         </>
       )}
     </Box>
