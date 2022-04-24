@@ -21,6 +21,7 @@ import { getStore } from "../../apis/stores"
 import RatingStars from "../../components/ui/RatingStars"
 import FavoriteButton from "./FavoriteButton"
 import ReviewCard from "../../components/ui/reviewCard"
+import OpeningHours from "./OpeningHours"
 
 export default function StoreDrawer({
   id,
@@ -129,22 +130,7 @@ export default function StoreDrawer({
               </ListItemIcon>
               <ListItemText primary="營業時間" />
             </ListItem>
-            <Grid container spacing={1}>
-              {store.source_data.opening_hours.map((hour) => {
-                return (
-                  <>
-                    <Grid item xs={2}></Grid>
-                    <Grid item xs={8}>
-                      <Typography key={hour} variant="body2" color="#5c5c5c" mb={0.8}>
-                        {hour}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={2}></Grid>
-                  </>
-                )
-              })}
-            </Grid>
-            <Stack alignItems="center" justifyContent="center"></Stack>
+            <OpeningHours openingHours={store.opening_hours} />
           </List>
           <Divider />
           <Typography
