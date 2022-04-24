@@ -1,4 +1,4 @@
-import { useState, useEffect,  } from "react"
+import { useState, useEffect } from "react"
 import {
   Box,
   Drawer,
@@ -9,6 +9,8 @@ import {
   Typography,
   ListItemIcon,
   ListItemText,
+  Divider,
+  Grid
 } from "@mui/material"
 import {
   LocationOn as LocationOnIcon,
@@ -18,8 +20,16 @@ import {
 import { getStore } from "../../apis/stores"
 import RatingStars from "../../components/ui/RatingStars"
 import FavoriteButton from "./FavoriteButton"
+import ReviewCard from "../../components/ui/reviewCard"
+import OpeningHours from "./OpeningHours"
 
-export default function StoreDrawer({ id, setStoreId, favoriteStores, addToFavorite, addToHidden }) {
+export default function StoreDrawer({
+  id,
+  setStoreId,
+  favoriteStores,
+  addToFavorite,
+  addToHidden,
+}) {
   const [store, setStore] = useState(null)
   const [state, setState] = useState(false)
   const [isFavorite, setIsFavorite] = useState(false)
@@ -62,15 +72,36 @@ export default function StoreDrawer({ id, setStoreId, favoriteStores, addToFavor
     >
       {store && (
         <>
+          <Stack
+            sx={{ width: 400, height: 240, overflow: "hidden" }}
+            justifyContent="center"
+            alignItems="center"
+          >
+            <img
+              src={store.image_url}
+              alt={store.name}
+              style={{ maxWidth: "100%", height: "auto" }}
+            />
+          </Stack>
           <Typography
             id="modal-modal-title"
             variant="h6"
             component="h2"
-            sx={{ ml: 2, mt: 2, mb: 1 }}
+            sx={{ ml: 3, mt: 2, mb: 1 }}
           >
             {store.name}
           </Typography>
-          <Stack direction="row" ml={2} mb={2} spacing={1}>
+          <Stack direction="row" ml={3} mb={2} spacing={1}>
+            <Typography variant="body2" color="#999">
+              {store.rating}{" "}
+            </Typography>
+            <RatingStars rating={store.rating} />
+            <Typography variant="body2" color="#1A73E8">
+              {store.user_ratings_total} 則評論
+            </Typography>
+          </Stack>
+          <Divider />
+          <Stack direction="row" my={2} mx={3} spacing={1}>
             <FavoriteButton
               isFavorite={isFavorite}
               addToFavorite={addToFavorite}
@@ -79,13 +110,7 @@ export default function StoreDrawer({ id, setStoreId, favoriteStores, addToFavor
               隱藏
             </Button>
           </Stack>
-          <Stack direction="row" ml={2} spacing={1}>
-            <Typography variant="body2">{store.rating} </Typography>
-            <RatingStars rating={store.rating} />
-            <Typography variant="body2">
-              {store.user_ratings_total} 則評論
-            </Typography>
-          </Stack>
+          <Divider />
           <List>
             <ListItem button component="a" target="_blank" href={store.url}>
               <ListItemIcon>
@@ -105,16 +130,20 @@ export default function StoreDrawer({ id, setStoreId, favoriteStores, addToFavor
               </ListItemIcon>
               <ListItemText primary="營業時間" />
             </ListItem>
-            <Stack ml={12}>
-              {store.source_data.opening_hours.map((hour) => {
-                return (
-                  <Typography key={hour} variant="subtitle1" mb={1}>
-                    {hour}
-                  </Typography>
-                )
-              })}
-            </Stack>
+            <OpeningHours openingHours={store.opening_hours} />
           </List>
+          <Divider />
+          <Typography
+            variant="subtitle1"
+            sx={{ fontWeight: "500" }}
+            mt={2}
+            ml={2}
+          >
+            評論
+          </Typography>
+          {store.source_data.reviews.map((review) => (
+            <ReviewCard key={review.time} review={review} />
+          ))}
         </>
       )}
     </Box>

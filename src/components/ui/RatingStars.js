@@ -20,7 +20,7 @@ function chooseStar(limit, rating) {
 }
 const RatingStars = ({ rating }) => {
   return (
-    <Box>
+    <Box display="flex" justifyContent="center">
       {chooseStar(1, rating)}
       {chooseStar(2, rating)}
       {chooseStar(3, rating)}
