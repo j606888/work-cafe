@@ -20,20 +20,29 @@ const MenuProps = {
   },
 }
 
-export default function CitySelector() {
-  const [city, setCity] = useState('')
-  const [area, setArea] = useState([])
-  const [areaOptions, setAreaOptions] = useState([])
+export default function CitySelector({ updateFilters }) {
+  const [city, setCity] = useState("")
+  const [districts, setDistricts] = useState([])
+  const [districtsOptions, setDistrictsOptions] = useState([])
 
-  const cityOptions = cityMap.map(({ name }) => <MenuItem key={name} value={name}>{name}</MenuItem>)
+  const cityOptions = cityMap.map(({ name }) => (
+    <MenuItem key={name} value={name}>
+      {name}
+    </MenuItem>
+  ))
 
   useEffect(() => {
     const targetCity = cityMap.find(({ name }) => name === city)
     if (!targetCity) return
-    
-    setAreaOptions(targetCity.area)
-    setArea([])
+
+    setDistrictsOptions(targetCity.area)
+    setDistricts([])
   }, [city])
+
+  useEffect(() => {
+    if (city === "") return
+    updateFilters({ city, districts })
+  }, [city, districts])
 
   return (
     <Box sx={{ minWidth: 120 }}>
@@ -50,14 +59,14 @@ export default function CitySelector() {
         </Select>
       </FormControl>
       <FormControl fullWidth>
-        <InputLabel id="demo-multiple-chip-label">Chip</InputLabel>
+        <InputLabel id="demo-multiple-chip-label">鄉鎮區</InputLabel>
         <Select
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
           multiple
-          value={area}
-          onChange={(event) => setArea(event.target.value)}
-          input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+          value={districts}
+          onChange={(event) => setDistricts(event.target.value)}
+          input={<OutlinedInput id="select-multiple-chip" label="鄉鎮區" />}
           renderValue={(selected) => (
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
               {selected.map((value) => (
@@ -67,7 +76,7 @@ export default function CitySelector() {
           )}
           MenuProps={MenuProps}
         >
-          {areaOptions.map((name) => (
+          {districtsOptions.map((name) => (
             <MenuItem key={name} value={name}>
               {name}
             </MenuItem>

@@ -1,9 +1,11 @@
 import apiPath from "../config/apiPath"
 import authAxios from "./axios/authAxios"
 
-export const getAllStores = ({ page, per }) => {
-  const params = { page, per }
-  return authAxios.get(apiPath.stores.getAllStores, { params })
+export const getAllStores = ({ page, per, city, districts }) => {
+  const params = { page, per, city, districts }
+  return authAxios.get(apiPath.stores.getAllStores, {
+    params
+  })
 }
 
 export const getStore = (id) => {

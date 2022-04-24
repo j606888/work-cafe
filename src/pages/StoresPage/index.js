@@ -38,19 +38,23 @@ const StoresPage = () => {
     setParams({ ...params, per: +event.target.value, page: 1 })
   }
 
+  function handleUpdateFilters({ city, districts }) {
+    setParams({ ...params, city, districts, page: 1 })
+  }
+
   return (
     <UserLayout maxWidth="none" mt={3}>
       {paging && (
         <>
-          <CitySelector/>
+          <CitySelector updateFilters={handleUpdateFilters} />
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 300 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell>咖啡廳</TableCell>
-                  <TableCell align="right">ID</TableCell>
+                  <TableCell align="right">縣市</TableCell>
+                  <TableCell align="right">鄉鎮區</TableCell>
                   <TableCell align="right">電話</TableCell>
-                  <TableCell align="right">座標</TableCell>
                   <TableCell align="right">評價</TableCell>
                 </TableRow>
               </TableHead>
@@ -65,9 +69,9 @@ const StoresPage = () => {
                         {store.name}
                       </Link>
                     </TableCell>
-                    <TableCell align="right">{store.id}</TableCell>
+                    <TableCell align="right">{store.city}</TableCell>
+                    <TableCell align="right">{store.district}</TableCell>
                     <TableCell align="right">{store.phone}</TableCell>
-                    <TableCell align="right">{`${store.lat},${store.lng}`}</TableCell>
                     <TableCell align="right">
                       <RatingStars rating={store.rating} />
                     </TableCell>
