@@ -1,4 +1,4 @@
-import { useState, useEffect,  } from "react"
+import { useState, useEffect } from "react"
 import {
   Box,
   Drawer,
@@ -19,7 +19,13 @@ import { getStore } from "../../apis/stores"
 import RatingStars from "../../components/ui/RatingStars"
 import FavoriteButton from "./FavoriteButton"
 
-export default function StoreDrawer({ id, setStoreId, favoriteStores, addToFavorite, addToHidden }) {
+export default function StoreDrawer({
+  id,
+  setStoreId,
+  favoriteStores,
+  addToFavorite,
+  addToHidden,
+}) {
   const [store, setStore] = useState(null)
   const [state, setState] = useState(false)
   const [isFavorite, setIsFavorite] = useState(false)
@@ -62,6 +68,9 @@ export default function StoreDrawer({ id, setStoreId, favoriteStores, addToFavor
     >
       {store && (
         <>
+          <Stack sx={{ width: 400, height: 240, overflow: 'hidden' }} justifyContent='center' alignItems='center'>
+            <img src={store.image_url} alt={store.name} style={{ maxWidth: '100%', height: 'auto'}} />
+          </Stack>
           <Typography
             id="modal-modal-title"
             variant="h6"
