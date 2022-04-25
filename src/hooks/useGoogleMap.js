@@ -8,6 +8,25 @@ const DEFAULT_SETUP = {
   },
   zoom: 16,
   fullscreenControl: false,
+  mapTypeControl: false,
+  styles: [
+    // {
+    //   featureType: "poi",
+    //   stylers: [{ visibility: "off" }],
+    // },
+    // {
+    //   featureType: "poi.school",
+    //   stylers: [{ visibility: "simplified" }],
+    // },
+    {
+      featureType: "poi.business",
+      stylers: [{ visibility: "off" }],
+    },
+    // {
+    //   featureType: "transit",
+    //   stylers: [{ visibility: "off" }],
+    // },
+  ],
 }
 
 export default function useGoogleMap({ ref, handleOnClick }) {
