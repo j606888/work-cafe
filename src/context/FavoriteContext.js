@@ -1,4 +1,4 @@
-import { createContext, useState } from "react"
+import { createContext, useCallback, useState } from "react"
 import { getAllFavoriteStores, toggleFavorite } from "../apis/user/favorites"
 
 const FavoriteContext = createContext({
@@ -12,13 +12,13 @@ export default FavoriteContext
 export const FavoriteProvider = ({ children }) => {
   const [favoriteStores, setFavoriteStores] = useState([])
 
-  async function fetchFavoriteStores() {
+  const fetchFavoriteStores = useCallback(async () => {
     const res = await getAllFavoriteStores({
       per: 100,
       page: 1,
     })
     setFavoriteStores(res.data.stores)
-  }
+  }, [])
 
   async function toggleFavroiteStore(storeId) {
     await toggleFavorite(storeId)
