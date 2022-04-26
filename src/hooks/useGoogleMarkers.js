@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react"
 
-export default function useGoogleMarkers({ map, items, setItems, setItemId }) {
-  const [markerIsLoaded, setMarkerIsLoaded] = useState(false)
+export default function useGoogleMarkers({ map, items, onClick }) {
+  const [markers, setMarkers] = useState([])
 
   useEffect(() => {
-    const isReady = map && items.length > 0 && !markerIsLoaded
-    if (!isReady) return
+    if (markers.length > 0) return
 
-    items.forEach((item) => {
+    const itemMarkers = items.map((item) => {
       const marker = new window.google.maps.Marker()
       const { id, name, lat, lng } = item
       marker.setOptions({
@@ -19,15 +18,16 @@ export default function useGoogleMarkers({ map, items, setItems, setItemId }) {
         label: name,
         map: map,
       })
-      marker.addListener("click", () => {
-        setItemId(id)
-      })
-      item.marker = marker
+      marker.id = id
+
+      if (onClick) {
+        marker.addListener("click", () => onClick(id))
+      }
+
+      return marker
     })
+    setMarkers(itemMarkers)
+  }, [map, items, markers.length, onClick])
 
-    setItems(items)
-    setMarkerIsLoaded(true)
-  }, [map, items, setItems, setItemId, markerIsLoaded])
-
-  return { markerIsLoaded, setMarkerIsLoaded }
+  return markers
 }

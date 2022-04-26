@@ -1,26 +1,18 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo } from "react"
 
-export default function useGoogleMarkerHidden({ items, setItems, hiddenItems }) {
-  const [hiddenMap, setHiddenMap] = useState({})
-
-  useEffect(() => {
+export default function useGoogleMarkerHidden({ markers, hiddenItems }) {
+  const hiddenMap = useMemo(() => {
     const idMap = {}
     hiddenItems.forEach((item) => (idMap[item.id] = true))
-    setHiddenMap(idMap)
-    
+    return idMap
   }, [hiddenItems])
 
   useEffect(() => {
-    if (items.length === 0) return
-    
-    items.forEach((item) => {
-      const { id, marker } = item
-      if (hiddenMap[id]) {
+    markers.forEach(marker => {
+      if(hiddenMap[marker.id]) {
         marker.setMap(null)
-        item.hidden = true
       }
     })
 
-    setItems([...items])
-  }, [hiddenItems, hiddenMap, setItems])
+  }, [markers, hiddenMap])
 }

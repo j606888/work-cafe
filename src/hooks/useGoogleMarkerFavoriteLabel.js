@@ -1,21 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 
-export default function useGoogleMarkerFavoriteLabel({ items, favoriteItems }) {
-  const [favoriteMap, setFavoriteMap] = useState({})
-  
-  useEffect(() => {
+export default function useGoogleMarkerFavoriteLabel({ markers, favoriteItems }) {
+  const favoriteMap = useMemo(() => {
     const idMap = {}
-    favoriteItems.forEach(item => idMap[item.id] = true)
-    setFavoriteMap(idMap)
-  }, [favoriteItems])
+    favoriteItems.forEach((item) => (idMap[item.id] = true))
+    return idMap
+  }, [favoriteItems])  
 
   useEffect(() => {
-    items.forEach(({ id, marker }) => {
-      if (favoriteMap[id]) {
+    markers.forEach(marker => {
+      if (favoriteMap[marker.id]) {
         marker.setOptions({ icon: "/favorite-icon.png" })
       } else {
         marker.setOptions({ icon: "/blue_pin.png" })
       }
     })
-  }, [items, favoriteItems, favoriteMap])
+  }, [markers, favoriteMap])
 }
