@@ -24,44 +24,45 @@ export default function useGoogleMap({ ref }) {
   const currentParams = useCallback(() => {
     const lat = searchParams.get("lat")
     const lng = searchParams.get("lng")
-    // const zoom = searchParams.get("zoom")
+    const zoom = searchParams.get("zoom")
 
     return {
       lat,
       lng,
-      // zoom,
+      zoom,
     }
   }, [searchParams])
 
   useEffect(() => {
-    if (!map) return
-
-    map.addListener("dragend", () => {
-      const center = map.getCenter()
-      const lat = center.lat().toFixed(6)
-      const lng = center.lng().toFixed(6)
-
-      const params = currentParams()
-      setSearchParams(createSearchParams({ ...params, lat, lng }), { replace: true })
-    })
-
-    // map.addListener("zoom_changed", () => {
-    //   const zoom = map.getZoom()
-
-    //   const params = currentParams()
-    //   setSearchParams(createSearchParams({ ...params, zoom }), { replace: true })
-    // })
-  }, [map, setSearchParams, currentParams])
-
-  useEffect(() => {
     if (ref.current && !map) {
       const settings = DEFAULT_SETUP
-      const urlSettings = currentParams()
+      // const urlSettings = currentParams()
       const googleMap = new window.google.maps.Map(ref.current, settings)
+
+      googleMap.addListener("dragend", () => {
+        const center = googleMap.getCenter()
+        const lat = center.lat().toFixed(6)
+        const lng = center.lng().toFixed(6)
+
+        const params = currentParams()
+        console.log("Pin")
+        setSearchParams(createSearchParams({ ...params, lat, lng }), {
+          replace: true,
+        })
+      })
+
+      googleMap.addListener("zoom_changed", () => {
+        const zoom = googleMap.getZoom()
+        const params = currentParams()
+        console.log("Pin")
+        setSearchParams(createSearchParams({ ...params, zoom }), {
+          replace: true,
+        })
+      })
 
       setMap(googleMap)
     }
-  }, [ref, map, currentParams])
+  }, [ref, map, currentParams, setSearchParams])
 
   return map
 }
