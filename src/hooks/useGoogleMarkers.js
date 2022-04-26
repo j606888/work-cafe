@@ -4,7 +4,7 @@ export default function useGoogleMarkers({ map, items, onClick }) {
   const [markers, setMarkers] = useState([])
 
   useEffect(() => {
-    if (markers.length > 0) return
+    if (!map) return
 
     const itemMarkers = items.map((item) => {
       const marker = new window.google.maps.Marker()
@@ -27,7 +27,7 @@ export default function useGoogleMarkers({ map, items, onClick }) {
       return marker
     })
     setMarkers(itemMarkers)
-  }, [map, items, markers.length, onClick])
+  }, [map, items, onClick])
 
   return markers
 }
