@@ -1,11 +1,13 @@
 import authAxios from "../axios/authAxios"
 import apiPath from "../../config/apiPath"
 
-export const getAllMapCrawlers = ({ status, page, per }) => {
+export const getAllMapCrawlers = ({ status, page, per, lat, lng }) => {
   const params = {
     status,
     page,
     per,
+    lat,
+    lng
   }
 
   return authAxios.get(apiPath.admin.mapCralwers.getAllMapCrawlers, { params })

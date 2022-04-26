@@ -24,12 +24,12 @@ export default function useGoogleMap({ ref }) {
   const currentParams = useCallback(() => {
     const lat = searchParams.get("lat")
     const lng = searchParams.get("lng")
-    const zoom = searchParams.get("zoom")
+    // const zoom = searchParams.get("zoom")
 
     return {
       lat,
       lng,
-      zoom,
+      // zoom,
     }
   }, [searchParams])
 
@@ -45,12 +45,12 @@ export default function useGoogleMap({ ref }) {
       setSearchParams(createSearchParams({ ...params, lat, lng }), { replace: true })
     })
 
-    map.addListener("zoom_changed", () => {
-      const zoom = map.getZoom()
+    // map.addListener("zoom_changed", () => {
+    //   const zoom = map.getZoom()
 
-      const params = currentParams()
-      setSearchParams(createSearchParams({ ...params, zoom }), { replace: true })
-    })
+    //   const params = currentParams()
+    //   setSearchParams(createSearchParams({ ...params, zoom }), { replace: true })
+    // })
   }, [map, setSearchParams, currentParams])
 
   useEffect(() => {
@@ -61,7 +61,7 @@ export default function useGoogleMap({ ref }) {
 
       setMap(googleMap)
     }
-  }, [ref, map, searchParams])
+  }, [ref, map, currentParams])
 
   return map
 }

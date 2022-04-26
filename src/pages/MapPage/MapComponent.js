@@ -39,6 +39,10 @@ function MapComponent() {
     fetchAllStores()
   }, [fetchAllStores])
 
+  useEffect(() => {
+    console.log(stores)
+  }, [stores])
+
   function addFavoriteHandler() {
     toggleFavroiteStore(storeId)
   }
