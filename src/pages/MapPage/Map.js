@@ -1,24 +1,26 @@
 import { useEffect, useRef, useState, useContext, useCallback } from "react"
-import useGoogleMap from "../../hooks/useGoogleMap"
-import useGoogleMarkers from "../../hooks/useGoogleMarkers"
-import StoreDrawer from "./StoreDrawer"
+import {
+  useGoogleMap,
+  useGoogleMarkers,
+  useGoogleMarkerHidden,
+  useGoogleMarkerFavoriteLabel,
+} from "../../hooks"
 import { getAllStores } from "../../apis/stores"
-import FavoriteContext from "../../context/FavoriteContext"
-import HiddenContext from "../../context/HiddenContext"
-import useGoogleCluster from "../../hooks/useGoogleCluster"
-import useGoogleMarkerFavoriteLabel from "../../hooks/useGoogleMarkerFavoriteLabel"
-import useGoogleMarkerHidden from "../../hooks/useGoogleMarkerHidden"
+import { FavoriteContext, HiddenContext } from "../../context"
+import StoreDrawer from "./StoreDrawer"
 
-function MapComponent() {
+export default function MapComponent() {
   const { favoriteStores, fetchFavoriteStores, toggleFavroiteStore } =
     useContext(FavoriteContext)
-  const { hiddenStores, fetchHiddenStores, createHiddenStore } = useContext(HiddenContext)
-  const [storeId, setStoreId] = useState(null)
+  const { hiddenStores, fetchHiddenStores, createHiddenStore } =
+    useContext(HiddenContext)
   const [stores, setStores] = useState([])
+  const [storeId, setStoreId] = useState(null)
+  const ref = useRef(null)
+
   const markerOnClick = useCallback((id) => {
     setStoreId(id)
   }, [])
-  const ref = useRef(null)
   const map = useGoogleMap({ ref })
   const markers = useGoogleMarkers({
     map,
@@ -38,10 +40,6 @@ function MapComponent() {
   useEffect(() => {
     fetchAllStores()
   }, [fetchAllStores])
-
-  useEffect(() => {
-    console.log(stores)
-  }, [stores])
 
   function addFavoriteHandler() {
     toggleFavroiteStore(storeId)
@@ -65,5 +63,3 @@ function MapComponent() {
     </>
   )
 }
-
-export default MapComponent
