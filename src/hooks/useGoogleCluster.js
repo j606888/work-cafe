@@ -22,7 +22,10 @@ export default function useGoogleCluster({ map, items, isLoaded }) {
       })
 
     cluster.clearMarkers()
-    cluster.addMarkers(markers)
+    if (markers && markers.length > 0) {
+      cluster.addMarkers(markers)
+    }
+    
     setCluster(cluster)
   }, [map, items, isLoaded, cluster])
 }

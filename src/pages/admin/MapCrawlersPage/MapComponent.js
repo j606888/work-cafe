@@ -1,75 +1,107 @@
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import useGoogleMap from "../../../hooks/useGoogleMap"
 import useGoogleMarkers from "../../../hooks/useGoogleMarkers"
 import StoreDrawer from "./StoreDrawer"
 import CrawlBoard from "./CrawlBoard"
 import { getAllMapCrawlers } from "../../../apis/admin/map_crawlers"
-import useGoogleCluster from "../../../hooks/useGoogleCluster"
 import useGoogleMarkerCrawledLabel from "../../../hooks/useGoogleMarkerCrawledLabel"
+import { useSearchParams } from "react-router-dom"
+import { Button } from "@mui/material"
 
 function MapComponent() {
+  const [searchParams] = useSearchParams()
   const [mapCrawlerId, setMapCrawlerId] = useState(null)
   const [location, setLocation] = useState(null)
   const [mapCrawlers, setMapCrawlers] = useState([])
+  const markerOnClick = useCallback((id) => {
+    console.log(`Marker with id ${id} was click`)
+    setMapCrawlerId(id)
+  }, [])
   const ref = useRef(null)
-  const map = useGoogleMap({ ref, handleOnClick: openBoard })
-  const { markerIsLoaded, setMarkerIsLoaded } = useGoogleMarkers({
-    map,
-    items: mapCrawlers,
-    setItems: setMapCrawlers,
-    setItemId: setMapCrawlerId,
-  })
-  useGoogleMarkerCrawledLabel({ items: mapCrawlers })
-  useGoogleCluster({ map, items: mapCrawlers, isLoaded: markerIsLoaded })
 
-  async function getMapCrawlers() {
-    const res = await getAllMapCrawlers({
-      page: 1,
-      per: 500,
-    })
-    const { map_crawlers, paging } = res.data
-    setMapCrawlers([...map_crawlers])
-  }
+  // googleMap.addListener("click", (mapMouseEvent) => {
+  //   const location = mapMouseEvent.latLng.toJSON()
+  //   if (handleOnClick) {
+  //     handleOnClick(location.lat, location.lng)
+  //   }
+  // })
 
-  useEffect(() => {
-    getMapCrawlers()
+  const getParams = useCallback(() => {
+    const lat = searchParams.get("lat")
+    const lng = searchParams.get("lng")
+    return {
+      lat,
+      lng,
+    }
+    // Only want to getParams first time 
   }, [])
 
-  useEffect(() => {
-    console.log("I am changed")
-  }, [mapCrawlers])
+  const map = useGoogleMap({ ref })
+  const markers = useGoogleMarkers({
+    map,
+    items: mapCrawlers,
+    onClick: markerOnClick,
+  })
+  useGoogleMarkerCrawledLabel({ markers, items: mapCrawlers })
 
-  function openBoard(lat, lng) {
-    setLocation(`${lat},${lng}`)
-  }
+  const getMapCrawlers = useCallback(({ lat, lng }) => {
+    async function doGetMapCrawlers() {
+      const res = await getAllMapCrawlers({
+        page: 1,
+        per: 30,
+        lat,
+        lng,
+        status: 'created'
+      })
+      const { map_crawlers } = res.data
+      setMapCrawlers(map_crawlers)
+    }
+
+    doGetMapCrawlers()
+  }, [])
+
+
+  // first time init
+  useEffect(() => {
+    const params = getParams()
+
+    getMapCrawlers(params)
+  }, [getParams, getMapCrawlers])
+
 
   function removeMarker(id) {
-    const mapCrawler = mapCrawlers.find((mc) => mc.id === id)
-    mapCrawler.marker.setMap(null)
-    mapCrawler.hidden = true
-    setMapCrawlers([...mapCrawlers])
+    const marker = markers.find((m) => m.id === id)
+    marker.setMap(null)
   }
 
   function handleRefresh() {
-    mapCrawlers.forEach((mapCrawler) => {
-      mapCrawler.marker.setMap(null)
+    markers.forEach((marker) => {
+      marker.setMap(null)
     })
-    setMapCrawlers([])
-    setMarkerIsLoaded(false)
-    getMapCrawlers()
+
+    const lat = searchParams.get("lat")
+    const lng = searchParams.get("lng")
+    getMapCrawlers({ lat, lng })
   }
 
   return (
-    <>
+    <div style={{ height: "100%", position: "relative" }}>
       <StoreDrawer
         id={mapCrawlerId}
         setMapCrawlerId={setMapCrawlerId}
         removeMarker={removeMarker}
       />
+      <Button
+        variant="contained"
+        onClick={handleRefresh}
+        sx={{ position: "absolute", top: "2%", left: "50%", zIndex: "modal" }}
+      >
+        搜尋這個區域
+      </Button>
       <CrawlBoard location={location} refreshMap={handleRefresh} />
       <div style={{ height: "10px" }} />
       <div ref={ref} style={{ width: "100%", height: "80%" }}></div>
-    </>
+    </div>
   )
 }
 
