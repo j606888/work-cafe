@@ -55,6 +55,7 @@ const StoresPage = () => {
                   <TableCell align="right">縣市</TableCell>
                   <TableCell align="right">鄉鎮區</TableCell>
                   <TableCell align="right">電話</TableCell>
+                  <TableCell align="right">評價數</TableCell>
                   <TableCell align="right">評價</TableCell>
                 </TableRow>
               </TableHead>
@@ -72,6 +73,9 @@ const StoresPage = () => {
                     <TableCell align="right">{store.city}</TableCell>
                     <TableCell align="right">{store.district}</TableCell>
                     <TableCell align="right">{store.phone}</TableCell>
+                    <TableCell align="right">
+                      {store.user_ratings_total}
+                    </TableCell>
                     <TableCell align="right">
                       <RatingStars rating={store.rating} />
                     </TableCell>
